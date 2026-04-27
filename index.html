@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waterade — Documentation</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #F9FAFB;
+      color: #1F2937;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top bar */
+    .topbar {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E7EB;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #111827;
+    }
+    .brand-mark {
+      width: 32px; height: 32px;
+      background: #2563EB;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 14px;
+    }
+    .topbar-actions { display: flex; gap: 8px; }
+    .crumb {
+      background: transparent;
+      border: 1px solid #E5E7EB;
+      color: #6B7280;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .crumb:hover { background: #F3F4F6; color: #111827; }
+
+    /* Layout */
+    .container { max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; }
+
+    /* Landing */
+    .landing-hero { text-align: center; margin-bottom: 48px; }
+    .landing-hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .landing-hero p {
+      font-size: 17px;
+      color: #6B7280;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 16px;
+    }
+    @media (max-width: 760px) {
+      .option-grid { grid-template-columns: 1fr; }
+      .landing-hero h1 { font-size: 32px; }
+    }
+
+    .option-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 14px;
+      padding: 32px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      text-align: left;
+      width: 100%;
+      font-family: inherit;
+    }
+    .option-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
+      border-color: #2563EB;
+    }
+    .option-card .icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .option-card.docs .icon-wrap { background: #DBEAFE; color: #2563EB; }
+    .option-card.video .icon-wrap { background: #D1FAE5; color: #059669; }
+    .option-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #111827;
+    }
+    .option-card p {
+      color: #6B7280;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    .option-card .arrow {
+      color: #2563EB;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .option-card.video .arrow { color: #059669; }
+
+    /* Section heading */
+    .section-head {
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .section-head h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .section-head p { color: #6B7280; font-size: 15px; }
+
+    /* Docs layout */
+    .docs-layout { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+    @media (max-width: 900px) { .docs-layout { grid-template-columns: 1fr; } }
+
+    .toc {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      font-size: 14px;
+    }
+    .toc-title {
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #9CA3AF;
+      margin-bottom: 12px;
+    }
+    .toc a {
+      display: block;
+      padding: 8px 12px;
+      color: #4B5563;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      border-radius: 0 6px 6px 0;
+      transition: all 0.12s;
+    }
+    .toc a:hover { background: #F3F4F6; color: #111827; }
+    .toc a.active {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border-left-color: #2563EB;
+      font-weight: 600;
+    }
+
+    /* Doc content */
+    article h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      padding-top: 12px;
+      letter-spacing: -0.01em;
+    }
+    article h2:first-child { margin-top: 0; }
+    article h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1F2937;
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+    article p { margin-bottom: 14px; color: #374151; }
+    article ul, article ol { margin: 12px 0 18px 22px; }
+    article li { margin-bottom: 6px; color: #374151; }
+    article code {
+      background: #F3F4F6;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 13px;
+      color: #1F2937;
+    }
+    article a { color: #2563EB; text-decoration: none; }
+    article a:hover { text-decoration: underline; }
+
+    .info-box {
+      background: #EFF6FF;
+      border-left: 4px solid #2563EB;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      color: #1E40AF;
+      font-size: 14px;
+    }
+
+    .status-table {
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 18px 0 24px;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .status-table th, .status-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .status-table th {
+      background: #F9FAFB;
+      font-weight: 600;
+      color: #6B7280;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-table tr:last-child td { border-bottom: none; }
+    .status-pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Videos */
+    .video-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+    .video-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .video-card-head {
+      padding: 20px 24px;
+      border-bottom: 1px solid #F3F4F6;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .video-card-head .num {
+      width: 32px; height: 32px;
+      background: #DBEAFE;
+      color: #2563EB;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .video-card-head h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+    .video-card-head p {
+      color: #6B7280;
+      font-size: 13px;
+    }
+    .video-frame {
+      position: relative;
+      width: 100%;
+      padding-bottom: 62.5%;
+      height: 0;
+    }
+    .video-frame iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .footer {
+      text-align: center;
+      color: #9CA3AF;
+      font-size: 13px;
+      padding: 32px 16px 16px;
+    }
+
+    /* Page switching */
+    .page { display: none; }
+    .page.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <span>Waterade Docs</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="crumb" id="homeBtn" style="display:none">← Back to Home</button>
+    </div>
+  </header>
+
+  <!-- Landing -->
+  <main class="container page active" id="page-home">
+    <section class="landing-hero">
+      <h1>Welcome to Waterade</h1>
+      <p>Choose how you'd like to get started — read the detailed guide for the full picture, or watch the short walkthrough videos to see the most common flows in action.</p>
+    </section>
+
+    <div class="option-grid">
+      <button class="option-card docs" onclick="goTo('docs')">
+        <div class="icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h2>Detailed Documentation</h2>
+        <p>A written guide covering customers, machines, service tickets, replacement jobs, and the full ticket lifecycle.</p>
+        <span class="arrow">Read the guide →</span>
+      </button>
+
+      <button class="option-card video" onclick="goTo('videos')">
+        <div class="icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <h2>Walkthrough Videos</h2>
+        <p>Short Loom recordings showing how to create new machines, customers, and service tickets — about 2–3 minutes each.</p>
+        <span class="arrow">Watch the videos →</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- Detailed documentation -->
+  <main class="container page" id="page-docs">
+    <div class="section-head">
+      <h1>Detailed Documentation</h1>
+      <p>Everything you need to know to operate the Waterade fleet management app day-to-day.</p>
+    </div>
+
+    <div class="docs-layout">
+      <nav class="toc" id="toc">
+        <div class="toc-title">On this page</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#customers">Customers</a>
+        <a href="#machines">Machines</a>
+        <a href="#tickets">Service Tickets</a>
+        <a href="#statuses">Status Reference</a>
+      </nav>
+
+      <article>
+        <h2 id="overview">Overview</h2>
+        <p>Waterade tracks a fleet of water dispenser machines deployed across customer sites (mostly care homes). The app gives you a single place to manage three things:</p>
+        <ul>
+          <li><strong>Customers</strong> — the homes / locations where machines are deployed.</li>
+          <li><strong>Machines</strong> — every individual unit, identified by its serial number.</li>
+          <li><strong>Service tickets</strong> — when a machine needs intake, repair, replacement, or write-off.</li>
+        </ul>
+        <p>The typical workflow is: a customer reports a fault → a service ticket is opened → the machine is collected → it's received at the workshop → it's verified, serviced, and either returned to the customer or written off.</p>
+
+        <h2 id="customers">Customers</h2>
+        <p>Customers represent the locations that own or rent dispensers. Each customer has a unique <code>client_ref</code> (e.g. <code>CH108</code>, <code>OAK107</code>) used across the system to link machines and tickets back to a home.</p>
+        <h3>Creating a new customer</h3>
+        <ol>
+          <li>Open the <strong>Customers</strong> page from the sidebar.</li>
+          <li>Click <strong>Add New Customer</strong>.</li>
+          <li>Fill in the home name, client reference, region (Southwest / Southeast / Midlands), and any contact details.</li>
+          <li>Save. The new customer is immediately available when creating tickets or assigning machines.</li>
+        </ol>
+        <div class="info-box">For a video walkthrough of customer creation, see the <a href="#" onclick="goTo('videos'); return false;">Walkthrough Videos</a> section.</div>
+
+        <h2 id="machines">Machines</h2>
+        <p>Each machine is uniquely identified by a <strong>serial number</strong>. The system also tracks a friendly <strong>machine number</strong>, the <strong>birth date</strong>, the home it's currently deployed at, last service date, and replacement-part dates (fan, motor, condenser).</p>
+        <h3>Creating a new machine</h3>
+        <ol>
+          <li>Go to <strong>All Machines</strong> from the sidebar.</li>
+          <li>Click <strong>Add New Machine</strong>.</li>
+          <li>Enter the serial number, machine number, birth date, and pick the initial status (e.g. <code>new_stock</code>).</li>
+          <li>Optionally link to a customer if it's already deployed.</li>
+          <li>Save.</li>
+        </ol>
+
+        <h3>Filtering and searching</h3>
+        <p>Use the <strong>Status Filter</strong> and <strong>Region Filter</strong> at the top of the Machines page to narrow the list. Click any row's eye icon to open the machine's full detail view, including its full service history.</p>
+
+        <h2 id="tickets">Service Tickets</h2>
+        <p>A service ticket is opened whenever one or more machines need attention. Tickets move through these high-level stages:</p>
+        <ul>
+          <li><strong>Open / In Transit to Us</strong> — machine has been picked up from the customer.</li>
+          <li><strong>With Us to Be Serviced</strong> — machine has arrived at the workshop and is awaiting intake verification.</li>
+          <li><strong>Being Serviced</strong> — service has started.</li>
+          <li><strong>Service Complete / In Transit to Customer</strong> — repair done, returning to site.</li>
+          <li><strong>Closed</strong> — final state.</li>
+        </ul>
+
+        <h3>Receive Machines</h3>
+        <p>When physical machines arrive at the workshop, click <strong>Receive Machines</strong> on the ticket detail page. Enter the date received and any optional remarks. This sets the ticket to <em>With Us to Be Serviced</em> and updates each linked machine.</p>
+
+        <h3>Verify Intake</h3>
+        <p>For each received machine, click <strong>Verify Intake</strong> to confirm the physical machine matches the record. You can add intake notes (scuffs, missing parts, etc.) before confirming. Once verified the row shows <em>Ready for Service</em>.</p>
+
+        <h3>Generate Service Report</h3>
+        <p>For verified machines, click <strong>Generate Service Report</strong>. Select the service type, owner, category, location, technician, and dates. The system marks the machine as <em>In Service</em> and produces a PDF report (delivered via the integrated webhook).</p>
+
+        <h3>Complete Service or Write Off</h3>
+        <p>From an <em>In Service</em> machine you can either <strong>Complete Service</strong> (record completion date and component replacement dates for fan / motor / condenser) or <strong>Write Off</strong> (with a reason). When all machines on the ticket finish one of these, the ticket auto-closes.</p>
+
+        <h2 id="statuses">Status Reference</h2>
+        <table class="status-table">
+          <thead>
+            <tr><th>Status</th><th>Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="status-pill" style="background:#DBEAFE;color:#2563EB">new_stock</span></td><td>Newly received unit, never deployed.</td></tr>
+            <tr><td><span class="status-pill" style="background:#CCFBF1;color:#0D9488">in_stock</span></td><td>Available in the warehouse for assignment.</td></tr>
+            <tr><td><span class="status-pill" style="background:#D1FAE5;color:#059669">deployed</span></td><td>At a customer site and in active use.</td></tr>
+            <tr><td><span class="status-pill" style="background:#FEF3C7;color:#92400E">in_transit_to_us</span></td><td>Picked up, on the way to workshop.</td></tr>
+            <tr><td><span class="status-pill" style="background:#FEE2E2;color:#991B1B">with_us_to_be_serviced</span></td><td>Arrived at workshop, awaiting service.</td></tr>
+            <tr><td><span class="status-pill" style="background:#FFEDD5;color:#EA580C">being_serviced</span></td><td>Currently being repaired.</td></tr>
+            <tr><td><span class="status-pill" style="background:#EDE9FE;color:#8B5CF6">in_transit_to_customer</span></td><td>Repaired or replacement, returning to customer.</td></tr>
+            <tr><td><span class="status-pill" style="background:#E5E7EB;color:#374151">written_off</span></td><td>Permanently retired from the fleet.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info-box">Need to see one of these flows in action? Check the <a href="#" onclick="goTo('videos'); return false;">Walkthrough Videos</a>.</div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Walkthrough videos -->
+  <main class="container page" id="page-videos">
+    <div class="section-head">
+      <h1>Walkthrough Videos</h1>
+      <p>Three short Loom recordings covering the most common day-one flows. Click play on any video below.</p>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-card-head">
+          <div class="num">1</div>
+          <div>
+            <h3>How to create a new Customer</h3>
+            <p>Adding a home / location to the system, including client reference and region.</p>
+          </div>
+        </div>
+        <div class="video-frame">
+          <iframe src="https://www.loom.com/embed/3220ca3aa8414c46969a98c8eb06ca23" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-card-head">
+          <div class="num">2</div>
+          <div>
+            <h3>How to create a new Machine</h3>
+            <p>Adding a dispenser to the fleet — serial number, birth date, status, and customer link.</p>
+          </div>
+        </div>
+        <div class="video-frame">
+          <iframe src="https://www.loom.com/embed/f5ff4a60952b422ebf7a596a8f2a1b36" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-card-head">
+          <div class="num">3</div>
+          <div>
+            <h3>How to create a Service Ticket</h3>
+            <p>Opening a ticket against one or more machines and triggering the service workflow.</p>
+          </div>
+        </div>
+        <div class="video-frame">
+          <iframe src="https://www.loom.com/embed/f1c7fe64b74c4be3a0aa55514c316198" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">More walkthroughs will be added as the rollout continues.</div>
+  </main>
+
+  <script>
+    function goTo(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      document.getElementById('homeBtn').style.display = (page === 'home') ? 'none' : 'inline-flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    document.getElementById('homeBtn').addEventListener('click', () => goTo('home'));
+
+    // TOC active-link highlight on scroll within docs page
+    const tocLinks = document.querySelectorAll('.toc a');
+    const sections = ['overview','customers','machines','tickets','statuses']
+      .map(id => document.getElementById(id));
+    window.addEventListener('scroll', () => {
+      if (!document.getElementById('page-docs').classList.contains('active')) return;
+      let current = sections[0];
+      const y = window.scrollY + 140;
+      for (const s of sections) if (s && s.offsetTop <= y) current = s;
+      tocLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
+      });
+    });
+
+    // Smooth scroll for TOC links
+    tocLinks.forEach(a => a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const t = document.querySelector(href);
+        if (t) window.scrollTo({ top: t.offsetTop - 100, behavior: 'smooth' });
+      }
+    }));
+  </script>
+
+</body>
+</html>
