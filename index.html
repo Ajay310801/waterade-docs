@@ -338,7 +338,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         </div>
         <h2>Detailed Documentation</h2>
-        <p>A written guide covering customers, machines, service tickets, replacement jobs, and the full ticket lifecycle.</p>
+        <p>A written guide covering customers, machines, fleet kanban, service tickets, replacement jobs, rentals and trials.</p>
         <span class="arrow">Read the guide →</span>
       </button>
 
@@ -347,7 +347,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         </div>
         <h2>Walkthrough Videos</h2>
-        <p>Short Loom recordings showing how to create new machines, customers, and service tickets — about 2–3 minutes each.</p>
+        <p>Eight short Loom recordings — customers, machines, fleet kanban, service tickets &amp; workflow, replacement jobs, rentals and trials.</p>
         <span class="arrow">Watch the videos →</span>
       </button>
     </div>
@@ -366,7 +366,12 @@
         <a href="#overview" class="active">Overview</a>
         <a href="#customers">Customers</a>
         <a href="#machines">Machines</a>
+        <a href="#kanban">Fleet Kanban</a>
         <a href="#tickets">Service Tickets</a>
+        <a href="#ticket-workflow">Ticket Workflow & Completion</a>
+        <a href="#replacement">Replacement Jobs</a>
+        <a href="#rentals">Rentals</a>
+        <a href="#trials">Trials</a>
         <a href="#statuses">Status Reference</a>
       </nav>
 
@@ -405,6 +410,11 @@
         <h3>Filtering and searching</h3>
         <p>Use the <strong>Status Filter</strong> and <strong>Region Filter</strong> at the top of the Machines page to narrow the list. Click any row's eye icon to open the machine's full detail view, including its full service history.</p>
 
+        <h2 id="kanban">Fleet Kanban</h2>
+        <p>The <strong>Fleet Kanban</strong> view (sidebar → <em>Fleet Kanban</em>) gives you a visual board of every machine grouped by its current status. Each card shows the serial number, the home it's currently at, and the time it has spent in the current state.</p>
+        <p>Use the kanban for a quick at-a-glance picture of where the fleet is bottlenecked — for example, lots of cards stuck in <em>With Us to Be Serviced</em> means intake is backed up. Click any card to jump straight into the machine's detail view.</p>
+        <div class="info-box">The kanban is a read-only overview — status changes still happen via service tickets, not by dragging cards.</div>
+
         <h2 id="tickets">Service Tickets</h2>
         <p>A service ticket is opened whenever one or more machines need attention. Tickets move through these high-level stages:</p>
         <ul>
@@ -425,6 +435,49 @@
 
         <h3>Complete Service or Write Off</h3>
         <p>From an <em>In Service</em> machine you can either <strong>Complete Service</strong> (record completion date and component replacement dates for fan / motor / condenser) or <strong>Write Off</strong> (with a reason). When all machines on the ticket finish one of these, the ticket auto-closes.</p>
+
+        <h2 id="ticket-workflow">Ticket Workflow & Completion</h2>
+        <p>End-to-end, a service ticket moves through five concrete steps. Knowing this sequence makes it easier to spot where a ticket is stuck:</p>
+        <ol>
+          <li><strong>Create ticket</strong> — pick the customer, add the machines that need attention, and describe the fault.</li>
+          <li><strong>Receive Machines</strong> — physical units arrive at the workshop; the ticket flips to <em>With Us to Be Serviced</em>.</li>
+          <li><strong>Verify Intake</strong> — confirm each machine matches what was reported and add intake notes.</li>
+          <li><strong>Generate Service Report</strong> — assign technician, service type and dates; a PDF service report is produced.</li>
+          <li><strong>Complete or Write Off</strong> — close out each machine. Once every machine is closed, the ticket auto-closes.</li>
+        </ol>
+        <p>An audit log entry is recorded at each transition, so you can always trace who did what and when from the ticket detail page.</p>
+
+        <h2 id="replacement">Replacement Jobs</h2>
+        <p>If a machine has to be swapped out instead of repaired, you create a <strong>Replacement Job</strong>. A job ties one or more replacement machines to a parent service ticket and tracks the courier, tracking number, and customer-received date for each replacement.</p>
+        <h3>Creating a replacement job</h3>
+        <ol>
+          <li>From the service ticket, click <strong>Create Replacement Job</strong> on a machine that's been written off or flagged for replacement.</li>
+          <li>Pick the replacement machine from in-stock units, set the send date, courier and tracking number.</li>
+          <li>Save. The replacement machine flips to <em>In Transit to Customer</em> and the original ticket is linked.</li>
+          <li>When the customer confirms receipt, set the <strong>Customer Received Date</strong> on the job — the replacement machine is then marked <em>Deployed</em>.</li>
+        </ol>
+
+        <h2 id="rentals">Rentals</h2>
+        <p>Rentals cover machines deployed on a paid-rental basis instead of as outright supply. The Rentals view (sidebar → <em>Rentals</em>) shows every active and historical rental with its rate, start and end dates, and the linked customer.</p>
+        <h3>Creating a rental</h3>
+        <ol>
+          <li>Open <strong>Rentals</strong> from the sidebar.</li>
+          <li>Click <strong>Add New Rental</strong>.</li>
+          <li>Select the customer, the machine being rented, the start date, monthly rate, and any notes.</li>
+          <li>Save. The machine status flips to <em>Deployed</em> and the rental row appears in the active rentals list.</li>
+        </ol>
+        <p>Closing a rental records an end date and returns the machine to <em>In Stock</em> (or routes it through service if it needs work).</p>
+
+        <h2 id="trials">Trials</h2>
+        <p>Trials are short-term loaner deployments — typically 1–4 weeks — used when a prospective customer wants to evaluate a machine before committing.</p>
+        <h3>Creating a trial</h3>
+        <ol>
+          <li>Open <strong>Trials</strong> from the sidebar.</li>
+          <li>Click <strong>Add New Trial</strong>.</li>
+          <li>Pick the customer, machine, trial start date, expected end date, and notes (e.g. point of contact).</li>
+          <li>Save. The machine flips to <em>Trial</em> status and counts down to the trial end date.</li>
+        </ol>
+        <p>At the end of the trial you can either convert it to a <em>Sale</em> / <em>Rental</em> (the machine stays deployed) or close the trial and recall the machine for return to stock.</p>
 
         <h2 id="statuses">Status Reference</h2>
         <table class="status-table">
@@ -452,46 +505,125 @@
   <main class="container page" id="page-videos">
     <div class="section-head">
       <h1>Walkthrough Videos</h1>
-      <p>Three short Loom recordings covering the most common day-one flows. Click play on any video below.</p>
+      <p>Short Loom recordings covering each of the main flows in the app. Click play on any video below.</p>
     </div>
 
-    <div class="video-grid">
-      <div class="video-card">
-        <div class="video-card-head">
-          <div class="num">1</div>
-          <div>
-            <h3>How to create a new Customer</h3>
-            <p>Adding a home / location to the system, including client reference and region.</p>
-          </div>
-        </div>
-        <div class="video-frame">
-          <iframe src="https://www.loom.com/embed/3220ca3aa8414c46969a98c8eb06ca23" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-        </div>
-      </div>
+    <div class="docs-layout">
+      <nav class="toc" id="toc-videos">
+        <div class="toc-title">Videos</div>
+        <a href="#vid-customer" class="active">1. Customer</a>
+        <a href="#vid-machine">2. Machine</a>
+        <a href="#vid-ticket">3. Service Ticket</a>
+        <a href="#vid-ticket-workflow">4. Ticket Workflow &amp; Completion</a>
+        <a href="#vid-kanban">5. Fleet Kanban Overview</a>
+        <a href="#vid-replacement">6. Replacement Job</a>
+        <a href="#vid-rental">7. Rental</a>
+        <a href="#vid-trial">8. Trial</a>
+      </nav>
 
-      <div class="video-card">
-        <div class="video-card-head">
-          <div class="num">2</div>
-          <div>
-            <h3>How to create a new Machine</h3>
-            <p>Adding a dispenser to the fleet — serial number, birth date, status, and customer link.</p>
+      <div class="video-grid">
+        <div class="video-card" id="vid-customer">
+          <div class="video-card-head">
+            <div class="num">1</div>
+            <div>
+              <h3>How to create a new Customer</h3>
+              <p>Adding a home / location to the system, including client reference and region.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/3220ca3aa8414c46969a98c8eb06ca23" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           </div>
         </div>
-        <div class="video-frame">
-          <iframe src="https://www.loom.com/embed/f5ff4a60952b422ebf7a596a8f2a1b36" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-        </div>
-      </div>
 
-      <div class="video-card">
-        <div class="video-card-head">
-          <div class="num">3</div>
-          <div>
-            <h3>How to create a Service Ticket</h3>
-            <p>Opening a ticket against one or more machines and triggering the service workflow.</p>
+        <div class="video-card" id="vid-machine">
+          <div class="video-card-head">
+            <div class="num">2</div>
+            <div>
+              <h3>How to create a new Machine</h3>
+              <p>Adding a dispenser to the fleet — serial number, birth date, status, and customer link.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/f5ff4a60952b422ebf7a596a8f2a1b36" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           </div>
         </div>
-        <div class="video-frame">
-          <iframe src="https://www.loom.com/embed/f1c7fe64b74c4be3a0aa55514c316198" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+        <div class="video-card" id="vid-ticket">
+          <div class="video-card-head">
+            <div class="num">3</div>
+            <div>
+              <h3>How to create a Service Ticket</h3>
+              <p>Opening a ticket against one or more machines and triggering the service workflow.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/f1c7fe64b74c4be3a0aa55514c316198" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="video-card" id="vid-ticket-workflow">
+          <div class="video-card-head">
+            <div class="num">4</div>
+            <div>
+              <h3>Service Ticket Workflow &amp; Completion</h3>
+              <p>End-to-end ticket flow: receiving, verifying intake, generating the service report and closing out.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/85b060a00baf4d8f9977e58f7b0bf6f5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="video-card" id="vid-kanban">
+          <div class="video-card-head">
+            <div class="num">5</div>
+            <div>
+              <h3>Fleet Kanban Overview</h3>
+              <p>How to use the kanban board to see every machine grouped by status and spot bottlenecks.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/eb573556cd2f4eea973b86ee3c7ce588" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="video-card" id="vid-replacement">
+          <div class="video-card-head">
+            <div class="num">6</div>
+            <div>
+              <h3>How to create a Replacement Job</h3>
+              <p>Swapping out a machine for a replacement — assigning the unit, courier and tracking details.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/f75f2ff573844201bd02e1ae138a93f5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="video-card" id="vid-rental">
+          <div class="video-card-head">
+            <div class="num">7</div>
+            <div>
+              <h3>How to create a Rental</h3>
+              <p>Setting up a paid rental — selecting the customer, machine, rate and start date.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/1081711077c34494b6d0f01ab4459192" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="video-card" id="vid-trial">
+          <div class="video-card-head">
+            <div class="num">8</div>
+            <div>
+              <h3>How to create a Trial</h3>
+              <p>Setting up a short-term trial deployment for a prospective customer evaluation.</p>
+            </div>
+          </div>
+          <div class="video-frame">
+            <iframe src="https://www.loom.com/embed/13eaffb8d6824cd8a343b98e3bb0099e" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -508,24 +640,40 @@
     }
     document.getElementById('homeBtn').addEventListener('click', () => goTo('home'));
 
-    // TOC active-link highlight on scroll within docs page
-    const tocLinks = document.querySelectorAll('.toc a');
-    const sections = ['overview','customers','machines','tickets','statuses']
-      .map(id => document.getElementById(id));
+    // Per-page scroll-spy: docs and videos each get their own TOC + section list
+    const tocSpec = [
+      {
+        pageId: 'page-docs',
+        tocId: 'toc',
+        sectionIds: ['overview','customers','machines','kanban','tickets','ticket-workflow','replacement','rentals','trials','statuses']
+      },
+      {
+        pageId: 'page-videos',
+        tocId: 'toc-videos',
+        sectionIds: ['vid-customer','vid-machine','vid-ticket','vid-ticket-workflow','vid-kanban','vid-replacement','vid-rental','vid-trial']
+      }
+    ];
+
     window.addEventListener('scroll', () => {
-      if (!document.getElementById('page-docs').classList.contains('active')) return;
-      let current = sections[0];
-      const y = window.scrollY + 140;
-      for (const s of sections) if (s && s.offsetTop <= y) current = s;
-      tocLinks.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
+      tocSpec.forEach(spec => {
+        const page = document.getElementById(spec.pageId);
+        if (!page || !page.classList.contains('active')) return;
+        const links = document.querySelectorAll('#' + spec.tocId + ' a');
+        const sections = spec.sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+        let current = sections[0];
+        const y = window.scrollY + 140;
+        for (const s of sections) if (s.offsetTop <= y) current = s;
+        if (!current) return;
+        links.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
+        });
       });
     });
 
-    // Smooth scroll for TOC links
-    tocLinks.forEach(a => a.addEventListener('click', e => {
+    // Smooth scroll for any TOC link
+    document.querySelectorAll('.toc a').forEach(a => a.addEventListener('click', e => {
       const href = a.getAttribute('href');
-      if (href.startsWith('#')) {
+      if (href && href.startsWith('#')) {
         e.preventDefault();
         const t = document.querySelector(href);
         if (t) window.scrollTo({ top: t.offsetTop - 100, behavior: 'smooth' });
