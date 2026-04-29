@@ -322,6 +322,7 @@
     </div>
     <div class="topbar-actions">
       <button class="crumb" id="homeBtn" style="display:none">← Back to Home</button>
+      <a class="crumb" href="Waterade-Documentation.pdf" download>Download PDF</a>
     </div>
   </header>
 
@@ -435,6 +436,7 @@
 
         <h3>Complete Service or Write Off</h3>
         <p>From an <em>In Service</em> machine you can either <strong>Complete Service</strong> (record completion date and component replacement dates for fan / motor / condenser) or <strong>Write Off</strong> (with a reason). When all machines on the ticket finish one of these, the ticket auto-closes.</p>
+        <div class="info-box">On ticket closure, the repaired machine moves back to <code>in_stock</code> and is held in the warehouse — it is <strong>not</strong> automatically reissued to the original customer. The replacement that was sent out earlier stays deployed at the customer site.</div>
 
         <h2 id="ticket-workflow">Ticket Workflow & Completion</h2>
         <p>End-to-end, a service ticket moves through five concrete steps. Knowing this sequence makes it easier to spot where a ticket is stuck:</p>
@@ -443,7 +445,7 @@
           <li><strong>Receive Machines</strong> — physical units arrive at the workshop; the ticket flips to <em>With Us to Be Serviced</em>.</li>
           <li><strong>Verify Intake</strong> — confirm each machine matches what was reported and add intake notes.</li>
           <li><strong>Generate Service Report</strong> — assign technician, service type and dates; a PDF service report is produced.</li>
-          <li><strong>Complete or Write Off</strong> — close out each machine. Once every machine is closed, the ticket auto-closes.</li>
+          <li><strong>Complete or Write Off</strong> — close out each machine. Once every machine is closed, the ticket auto-closes. The repaired machine returns to <code>in_stock</code>; the replacement sent earlier stays deployed at the customer.</li>
         </ol>
         <p>An audit log entry is recorded at each transition, so you can always trace who did what and when from the ticket detail page.</p>
 
@@ -491,7 +493,7 @@
             <tr><td><span class="status-pill" style="background:#FEF3C7;color:#92400E">in_transit_to_us</span></td><td>Picked up, on the way to workshop.</td></tr>
             <tr><td><span class="status-pill" style="background:#FEE2E2;color:#991B1B">with_us_to_be_serviced</span></td><td>Arrived at workshop, awaiting service.</td></tr>
             <tr><td><span class="status-pill" style="background:#FFEDD5;color:#EA580C">being_serviced</span></td><td>Currently being repaired.</td></tr>
-            <tr><td><span class="status-pill" style="background:#EDE9FE;color:#8B5CF6">in_transit_to_customer</span></td><td>Repaired or replacement, returning to customer.</td></tr>
+            <tr><td><span class="status-pill" style="background:#EDE9FE;color:#8B5CF6">in_transit_to_customer</span></td><td>Replacement machine en route to a customer site.</td></tr>
             <tr><td><span class="status-pill" style="background:#E5E7EB;color:#374151">written_off</span></td><td>Permanently retired from the fleet.</td></tr>
           </tbody>
         </table>
