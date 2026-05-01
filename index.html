@@ -311,6 +311,20 @@
     /* Page switching */
     .page { display: none; }
     .page.active { display: block; }
+
+    /* Print-friendly view (used by Download PDF and Cmd+P) */
+    @media print {
+      @page { size: A4; margin: 18mm 16mm; }
+      body { background: #FFFFFF; color: #111827; }
+      .topbar, .footer, #page-home, #page-videos, .toc { display: none !important; }
+      #page-docs { display: block !important; }
+      .container { max-width: 100%; padding: 0; }
+      .docs-layout { display: block; }
+      article h2 { margin-top: 28px; page-break-after: avoid; break-after: avoid-page; }
+      article h3 { page-break-after: avoid; break-after: avoid-page; }
+      article p, article li { orphans: 3; widows: 3; }
+      .info-box, .status-table { page-break-inside: avoid; break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
