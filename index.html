@@ -370,6 +370,7 @@
         <a href="#kanban">Fleet Kanban</a>
         <a href="#tickets">Service Tickets</a>
         <a href="#ticket-workflow">Ticket Workflow & Completion</a>
+        <a href="#service-reports">Service Reports (Draft &amp; Final)</a>
         <a href="#replacement">Replacement Jobs</a>
         <a href="#rentals">Rentals</a>
         <a href="#trials">Trials</a>
@@ -431,11 +432,45 @@
         <h3>Verify Intake</h3>
         <p>For each received machine, click <strong>Verify Intake</strong> to confirm the physical machine matches the record. You can add intake notes (scuffs, missing parts, etc.) before confirming. Once verified the row shows <em>Ready for Service</em>.</p>
 
-        <h3>Generate Service Report</h3>
-        <p>For verified machines, click <strong>Generate Service Report</strong>. Select the service type, owner, category, location, technician, and dates. The system marks the machine as <em>In Service</em> and produces a PDF report (delivered via the integrated webhook).</p>
+        <h3>Generate Service Report (Draft)</h3>
+        <p>For verified machines, click <strong>Generate Service Report</strong>. Select the service type, owner, category, location, technician, and dates. The system marks the machine as <em>In Service</em> and produces a <strong>Draft Service Report PDF</strong> — this is the document that is printed and handed to the service engineer along with the machine. View it any time from the <strong>View Report</strong> button on the machine card.</p>
 
         <h3>Complete Service or Write Off</h3>
-        <p>From an <em>In Service</em> machine you can either <strong>Complete Service</strong> (record completion date and component replacement dates for fan / motor / condenser) or <strong>Write Off</strong> (with a reason). When all machines on the ticket finish one of these, the ticket auto-closes.</p>
+        <p>From an <em>In Service</em> machine you can either <strong>Complete Service</strong> or <strong>Write Off</strong> (with a reason). When all machines on the ticket finish one of these, the ticket auto-closes.</p>
+        <p>Complete Service captures the engineer's findings into a <strong>Final Service Report PDF</strong>. The popup records:</p>
+        <ul>
+          <li><strong>Technician Notes</strong> — free-text area (4 lines minimum) where the office team types up the engineer's handwritten notes from the printed Draft Report.</li>
+          <li><strong>Parts Replaced</strong> — Fan / Motor / Condenser checkboxes with replacement dates.</li>
+          <li><strong>Service Completion Date</strong>.</li>
+          <li><strong>Service Photos</strong> — multi-file upload (up to 10 images) for any pictures the engineer took during the service.</li>
+          <li><strong>Completion Remarks</strong> — optional summary.</li>
+        </ul>
+        <p>Once submitted, the Final Report is auto-generated in the background and made available via the <strong>View Service Report</strong> button on the machine card.</p>
+
+        <h2 id="service-reports">Service Reports (Draft &amp; Final)</h2>
+        <p>Each serviced machine produces two distinct PDF reports. They serve different purposes in the workflow:</p>
+        <table class="status-table">
+          <thead>
+            <tr><th>Report</th><th>Generated when</th><th>Purpose</th><th>Accessed via</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Draft Service Report</strong></td>
+              <td>Office clicks <em>Generate Service Report</em> on a verified machine.</td>
+              <td>Printable working sheet for the service engineer. Includes ticket number, customer, machine serial &amp; number, service type, technician, dates and service remarks. Carried with the machine for the engineer to mark up by hand with his findings, parts replaced and notes.</td>
+              <td><strong>View Report</strong> button on the machine card.</td>
+            </tr>
+            <tr>
+              <td><strong>Final Service Report</strong></td>
+              <td>Office clicks <em>Complete Service</em> after the engineer returns the marked-up draft.</td>
+              <td>Permanent digital record of the completed service. Consolidates everything from the Complete Service popup — technician notes (entered by office from the engineer's paper), parts replaced with dates, completion date, completion remarks and uploaded service photos — into a single archived PDF.</td>
+              <td><strong>View Service Report</strong> button on the machine card.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box">
+          <strong>End-to-end flow:</strong> machine arrives → intake verified → office generates &amp; prints Draft Report → engineer services machine and writes notes on the printout → office receives the marked-up paper → office opens Complete Service popup, transcribes the engineer's notes, ticks off parts replaced, uploads photos → Final Report PDF is auto-generated and stored against the machine.
+        </div>
         <div class="info-box">On ticket closure, the repaired machine moves back to <code>in_stock</code> and is held in the warehouse — it is <strong>not</strong> automatically reissued to the original customer. The replacement that was sent out earlier stays deployed at the customer site.</div>
 
         <h2 id="ticket-workflow">Ticket Workflow & Completion</h2>
