@@ -5,340 +5,205 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Waterade — Documentation</title>
   <style>
+    :root {
+      --blue:#2563EB; --blue-d:#1D4ED8; --ink:#111827; --body:#374151;
+      --muted:#6B7280; --line:#E5E7EB; --bg:#F9FAFB; --card:#FFFFFF;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: #F9FAFB;
-      color: #1F2937;
+      background: var(--bg);
+      color: var(--ink);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
     /* Top bar */
     .topbar {
-      background: #FFFFFF;
-      border-bottom: 1px solid #E5E7EB;
-      padding: 18px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 20px;
-      color: #111827;
-    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; color: var(--ink); }
     .brand-mark {
-      width: 32px; height: 32px;
-      background: #2563EB;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-weight: 700; font-size: 14px;
+      width: 34px; height: 34px; background: linear-gradient(135deg,#2563EB,#3B82F6);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 800; font-size: 15px;
     }
     .topbar-actions { display: flex; gap: 8px; }
     .crumb {
-      background: transparent;
-      border: 1px solid #E5E7EB;
-      color: #6B7280;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.15s;
-      text-decoration: none;
+      background: transparent; border: 1px solid var(--line); color: var(--muted);
+      padding: 8px 14px; border-radius: 7px; font-size: 13px; cursor: pointer;
+      font-weight: 600; transition: all 0.15s; text-decoration: none;
     }
-    .crumb:hover { background: #F3F4F6; color: #111827; }
+    .crumb:hover { background: #F3F4F6; color: var(--ink); }
+    .crumb.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .crumb.primary:hover { background: var(--blue-d); color:#fff; }
 
-    /* Layout */
-    .container { max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 48px 32px 80px; }
 
     /* Landing */
-    .landing-hero { text-align: center; margin-bottom: 48px; }
-    .landing-hero h1 {
-      font-size: 44px;
-      font-weight: 800;
-      color: #111827;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
+    .landing-hero { text-align: center; margin-bottom: 44px; }
+    .landing-hero .eyebrow {
+      display:inline-block; font-size:12px; font-weight:700; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--blue); background:#EFF6FF;
+      padding:6px 14px; border-radius:999px; margin-bottom:18px;
     }
-    .landing-hero p {
-      font-size: 17px;
-      color: #6B7280;
-      max-width: 640px;
-      margin: 0 auto;
-    }
+    .landing-hero h1 { font-size: 46px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 14px; }
+    .landing-hero p { font-size: 17px; color: var(--muted); max-width: 640px; margin: 0 auto; }
 
-    .option-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 16px;
-    }
-    @media (max-width: 760px) {
-      .option-grid { grid-template-columns: 1fr; }
-      .landing-hero h1 { font-size: 32px; }
-    }
+    .option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 8px; }
+    @media (max-width: 760px) { .option-grid { grid-template-columns: 1fr; } .landing-hero h1 { font-size: 32px; } }
 
     .option-card {
-      background: #FFFFFF;
-      border: 1px solid #E5E7EB;
-      border-radius: 14px;
-      padding: 32px;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-      text-align: left;
-      width: 100%;
-      font-family: inherit;
+      background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 32px;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      text-align: left; width: 100%; font-family: inherit;
     }
-    .option-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
-      border-color: #2563EB;
-    }
-    .option-card .icon-wrap {
-      width: 56px; height: 56px;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 20px;
-    }
-    .option-card.docs .icon-wrap { background: #DBEAFE; color: #2563EB; }
+    .option-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(37,99,235,0.10); border-color: var(--blue); }
+    .option-card .icon-wrap { width: 56px; height: 56px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .option-card.docs .icon-wrap { background: #DBEAFE; color: var(--blue); }
     .option-card.video .icon-wrap { background: #D1FAE5; color: #059669; }
-    .option-card h2 {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #111827;
-    }
-    .option-card p {
-      color: #6B7280;
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
-    .option-card .arrow {
-      color: #2563EB;
-      font-weight: 600;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .option-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+    .option-card p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+    .option-card .arrow { color: var(--blue); font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
     .option-card.video .arrow { color: #059669; }
 
+    /* Landing quick facts */
+    .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px; }
+    @media (max-width:760px){ .facts{ grid-template-columns:repeat(2,1fr);} }
+    .fact { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; text-align:center; }
+    .fact .n { font-size:26px; font-weight:800; color:var(--ink); }
+    .fact .l { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:600; margin-top:4px; }
+
     /* Section heading */
-    .section-head {
-      margin-bottom: 32px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #E5E7EB;
-    }
-    .section-head h1 {
-      font-size: 32px;
-      font-weight: 800;
-      color: #111827;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-    .section-head p { color: #6B7280; font-size: 15px; }
+    .section-head { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .section-head h1 { font-size: 32px; font-weight: 800; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+    .section-head p { color: var(--muted); font-size: 15px; }
 
     /* Docs layout */
-    .docs-layout { display: grid; grid-template-columns: 240px 1fr; gap: 40px; }
+    .docs-layout { display: grid; grid-template-columns: 244px 1fr; gap: 44px; }
     @media (max-width: 900px) { .docs-layout { grid-template-columns: 1fr; } }
-
-    .toc {
-      position: sticky;
-      top: 100px;
-      align-self: start;
-      font-size: 14px;
-      max-height: calc(100vh - 130px);
-      overflow-y: auto;
-    }
-    .toc-title {
-      text-transform: uppercase;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: #9CA3AF;
-      margin-bottom: 12px;
-    }
-    .toc a {
-      display: block;
-      padding: 7px 12px;
-      color: #4B5563;
-      text-decoration: none;
-      border-left: 2px solid transparent;
-      border-radius: 0 6px 6px 0;
-      transition: all 0.12s;
-    }
-    .toc a:hover { background: #F3F4F6; color: #111827; }
-    .toc a.active {
-      background: #EFF6FF;
-      color: #1D4ED8;
-      border-left-color: #2563EB;
-      font-weight: 600;
-    }
+    .toc { position: sticky; top: 96px; align-self: start; font-size: 14px; max-height: calc(100vh - 120px); overflow-y: auto; }
+    .toc-title { text-transform: uppercase; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #9CA3AF; margin-bottom: 12px; }
+    .toc a { display: block; padding: 7px 12px; color: #4B5563; text-decoration: none; border-left: 2px solid transparent; border-radius: 0 6px 6px 0; transition: all 0.12s; }
+    .toc a:hover { background: #F3F4F6; color: var(--ink); }
+    .toc a.active { background: #EFF6FF; color: var(--blue-d); border-left-color: var(--blue); font-weight: 600; }
 
     /* Doc content */
     article h2 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #111827;
-      margin-top: 48px;
-      margin-bottom: 16px;
-      padding-top: 12px;
-      letter-spacing: -0.01em;
+      font-size: 23px; font-weight: 700; color: var(--ink); margin-top: 52px; margin-bottom: 14px;
+      letter-spacing: -0.01em; display:flex; align-items:center; gap:12px; scroll-margin-top:90px;
     }
     article h2:first-child { margin-top: 0; }
-    article h3 {
-      font-size: 17px;
-      font-weight: 700;
-      color: #1F2937;
-      margin-top: 28px;
-      margin-bottom: 10px;
+    .hicon {
+      width:34px; height:34px; border-radius:9px; background:#EFF6FF; color:var(--blue);
+      display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
     }
-    article p { margin-bottom: 14px; color: #374151; }
-    article ul, article ol { margin: 12px 0 18px 22px; }
-    article li { margin-bottom: 6px; color: #374151; }
-    article code {
-      background: #F3F4F6;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-family: "SF Mono", Menlo, Consolas, monospace;
-      font-size: 13px;
-      color: #1F2937;
+    article h3 { font-size: 16px; font-weight: 700; color: #1F2937; margin-top: 26px; margin-bottom: 8px; }
+    article p { margin-bottom: 14px; color: var(--body); }
+    article ul { margin: 10px 0 18px 4px; list-style:none; }
+    article ul li { margin-bottom: 8px; color: var(--body); padding-left: 26px; position: relative; }
+    article ul li::before {
+      content:""; position:absolute; left:6px; top:9px; width:7px; height:7px;
+      border-radius:50%; background:var(--blue); opacity:.55;
     }
-    article a { color: #2563EB; text-decoration: none; }
+    article code { background: #F3F4F6; padding: 2px 7px; border-radius: 4px; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 13px; color: #1F2937; }
+    article a { color: var(--blue); text-decoration: none; }
     article a:hover { text-decoration: underline; }
+    .lead { font-size: 16px; color:#4B5563; }
 
-    .info-box {
-      background: #EFF6FF;
-      border-left: 4px solid #2563EB;
-      padding: 14px 18px;
-      border-radius: 0 8px 8px 0;
-      margin: 16px 0;
-      color: #1E40AF;
-      font-size: 14px;
-    }
-    .warn-box {
-      background: #FFFBEB;
-      border-left: 4px solid #F59E0B;
-      padding: 14px 18px;
-      border-radius: 0 8px 8px 0;
-      margin: 16px 0;
-      color: #92400E;
-      font-size: 14px;
-    }
+    /* Callouts */
+    .box { padding: 14px 18px 14px 16px; border-radius: 0 10px 10px 0; margin: 18px 0; font-size: 14px; border-left: 4px solid; display:flex; gap:12px; }
+    .box .bi { flex-shrink:0; margin-top:1px; }
+    .box.info { background:#EFF6FF; border-color:var(--blue); color:#1E40AF; }
+    .box.tip  { background:#ECFDF5; border-color:#10B981; color:#065F46; }
+    .box.warn { background:#FFFBEB; border-color:#F59E0B; color:#92400E; }
+    .box b { font-weight:700; }
 
-    .status-table {
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 18px 0 24px;
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
+    /* Numbered step cards */
+    .steps { margin: 16px 0 22px; }
+    .step { display:flex; gap:16px; padding:14px 0; border-bottom:1px dashed var(--line); }
+    .step:last-child { border-bottom:none; }
+    .step-num {
+      width:30px; height:30px; border-radius:50%; background:var(--blue); color:#fff;
+      font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:2px;
     }
-    .status-table th, .status-table td {
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid #E5E7EB;
-      vertical-align: top;
+    .step-body { flex:1; }
+    .step-body b { color:var(--ink); font-weight:700; }
+    .step-body p { margin:2px 0 0; color:var(--body); font-size:14.5px; }
+
+    /* Horizontal flow diagram */
+    .flow { display:flex; flex-wrap:wrap; align-items:stretch; gap:10px; margin:20px 0 26px; }
+    .flow-step {
+      flex:1 1 150px; min-width:140px; background:var(--card); border:1px solid var(--line);
+      border-radius:12px; padding:14px 14px; text-align:center; position:relative;
     }
-    .status-table th {
-      background: #F9FAFB;
-      font-weight: 600;
-      color: #6B7280;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
+    .flow-step .fs-ic { width:38px; height:38px; margin:0 auto 8px; border-radius:10px; background:#EFF6FF; color:var(--blue); display:flex; align-items:center; justify-content:center; }
+    .flow-step .fs-t { font-weight:700; font-size:14px; color:var(--ink); }
+    .flow-step .fs-d { font-size:12px; color:var(--muted); margin-top:3px; }
+    .flow-arrow { display:flex; align-items:center; color:#9CA3AF; font-size:20px; font-weight:700; }
+    @media (max-width:620px){ .flow-arrow{ transform:rotate(90deg); margin:0 auto; } .flow{ flex-direction:column; } .flow-step{ min-width:0; } }
+
+    /* Workflow stepper (vertical, colored) */
+    .track { position:relative; margin:20px 0 26px; padding-left:34px; }
+    .track::before { content:""; position:absolute; left:14px; top:6px; bottom:6px; width:2px; background:var(--line); }
+    .track-item { position:relative; margin-bottom:20px; }
+    .track-item:last-child { margin-bottom:0; }
+    .track-dot { position:absolute; left:-34px; top:1px; width:30px; height:30px; border-radius:50%; background:#fff; border:2px solid var(--blue); color:var(--blue); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; }
+    .track-item h4 { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+    .track-item p { margin:0; font-size:14px; color:var(--body); }
+
+    /* Tables */
+    .status-table { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 18px 0 24px; width: 100%; border-collapse: collapse; font-size: 14px; }
+    .status-table th, .status-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .status-table th { background: #F9FAFB; font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
     .status-table tr:last-child td { border-bottom: none; }
-    .status-pill {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
+    .status-pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+
+    /* Quick nav cards inside docs */
+    .qgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:20px 0 8px; }
+    @media (max-width:760px){ .qgrid{ grid-template-columns:repeat(2,1fr);} }
+    .qcard { display:block; text-decoration:none; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; transition:all .15s; }
+    .qcard:hover { border-color:var(--blue); box-shadow:0 8px 18px rgba(37,99,235,.07); text-decoration:none; transform:translateY(-2px); }
+    .qcard .qic { width:34px; height:34px; border-radius:9px; background:#EFF6FF; color:var(--blue); display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
+    .qcard .qt { font-weight:700; font-size:14px; color:var(--ink); }
+    .qcard .qd { font-size:12.5px; color:var(--muted); margin-top:2px; }
 
     /* Videos */
     .video-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
-    .video-card {
-      background: #FFFFFF;
-      border: 1px solid #E5E7EB;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-    .video-card-head {
-      padding: 20px 24px;
-      border-bottom: 1px solid #F3F4F6;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .video-card-head .num {
-      width: 32px; height: 32px;
-      background: #DBEAFE;
-      color: #2563EB;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .video-card-head h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 2px;
-    }
-    .video-card-head p {
-      color: #6B7280;
-      font-size: 13px;
-    }
-    .video-frame {
-      position: relative;
-      width: 100%;
-      padding-bottom: 62.5%;
-      height: 0;
-    }
-    .video-frame iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: 0;
-    }
+    .video-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .video-card-head { padding: 20px 24px; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 14px; }
+    .video-card-head .num { width: 32px; height: 32px; background: #DBEAFE; color: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink:0; }
+    .video-card-head h3 { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .video-card-head p { color: var(--muted); font-size: 13px; }
+    .video-frame { position: relative; width: 100%; padding-bottom: 62.5%; height: 0; }
+    .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    .footer {
-      text-align: center;
-      color: #9CA3AF;
-      font-size: 13px;
-      padding: 32px 16px 16px;
-    }
+    .footer { text-align: center; color: #9CA3AF; font-size: 13px; padding: 40px 16px 16px; }
 
-    /* Page switching */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* Print-friendly view (used by Download PDF and Cmd+P) */
+    /* Print / PDF */
     @media print {
-      @page { size: A4; margin: 18mm 16mm; }
-      body { background: #FFFFFF; color: #111827; }
+      @page { size: A4; margin: 16mm 15mm; }
+      body { background: #FFFFFF; color: var(--ink); }
       .topbar, .footer, #page-home, #page-videos, .toc { display: none !important; }
       #page-docs { display: block !important; }
       .container { max-width: 100%; padding: 0; }
       .docs-layout { display: block; }
-      article h2 { margin-top: 28px; page-break-after: avoid; break-after: avoid-page; }
+      article h2 { margin-top: 26px; page-break-after: avoid; break-after: avoid-page; }
       article h3 { page-break-after: avoid; break-after: avoid-page; }
       article p, article li { orphans: 3; widows: 3; }
-      .info-box, .warn-box, .status-table { page-break-inside: avoid; break-inside: avoid; }
+      .box, .status-table, .step, .flow-step, .track-item, .qcard { page-break-inside: avoid; break-inside: avoid; }
+      .qgrid { display:none; }          /* on-screen shortcut cards not needed in print */
+      .flow-step, .qcard, .fact { box-shadow:none; }
+      a { color: var(--ink); text-decoration: none; }
     }
   </style>
 </head>
@@ -351,15 +216,16 @@
     </div>
     <div class="topbar-actions">
       <button class="crumb" id="homeBtn" style="display:none">← Back to Home</button>
-      <a class="crumb" href="Waterade-Documentation.pdf" download>Download PDF</a>
+      <a class="crumb primary" href="Waterade-Documentation.pdf" download>↓ Download PDF</a>
     </div>
   </header>
 
   <!-- Landing -->
   <main class="container page active" id="page-home">
     <section class="landing-hero">
+      <span class="eyebrow">Fleet Management Handbook</span>
       <h1>Welcome to Waterade</h1>
-      <p>Choose how you'd like to get started — read the detailed guide for the full picture, or watch the short walkthrough videos to see the most common flows in action.</p>
+      <p>Everything you need to run the water-dispenser fleet — from adding a machine to delivering, servicing, replacing and invoicing. Read the guide, or watch the short walkthrough videos.</p>
     </section>
 
     <div class="option-grid">
@@ -368,7 +234,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         </div>
         <h2>Detailed Documentation</h2>
-        <p>An end-to-end guide covering customers, machines, deliveries, trials, rentals, invoicing, service tickets, replacement jobs and proactive service planning.</p>
+        <p>A clear, illustrated guide covering customers, machines, deliveries, trials, rentals, invoicing, service tickets, replacement jobs and service planning.</p>
         <span class="arrow">Read the guide →</span>
       </button>
 
@@ -377,9 +243,16 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         </div>
         <h2>Walkthrough Videos</h2>
-        <p>Short Loom recordings covering the most common day-to-day flows — customers, machines, kanban, service tickets, replacement jobs, rentals and trials.</p>
+        <p>Eight short Loom recordings covering the most common day-to-day flows — customers, machines, kanban, tickets, replacement jobs, rentals and trials.</p>
         <span class="arrow">Watch the videos →</span>
       </button>
+    </div>
+
+    <div class="facts">
+      <div class="fact"><div class="n">1</div><div class="l">Fleet, one place</div></div>
+      <div class="fact"><div class="n">2</div><div class="l">Delivery types</div></div>
+      <div class="fact"><div class="n">5</div><div class="l">Ticket steps</div></div>
+      <div class="fact"><div class="n">2</div><div class="l">Service reports</div></div>
     </div>
   </main>
 
@@ -394,6 +267,7 @@
       <nav class="toc" id="toc">
         <div class="toc-title">On this page</div>
         <a href="#overview" class="active">Overview</a>
+        <a href="#lifecycle">Machine Lifecycle</a>
         <a href="#navigation">Getting Around</a>
         <a href="#customers">Customers</a>
         <a href="#machines">Machines</a>
@@ -402,224 +276,211 @@
         <a href="#deliveries">Deliveries</a>
         <a href="#trials">Trials</a>
         <a href="#rentals">Rentals</a>
-        <a href="#invoicing">Invoice Tracking &amp; Rentals Report</a>
+        <a href="#invoicing">Invoicing &amp; Reports</a>
         <a href="#tickets">Creating a Service Ticket</a>
         <a href="#ticket-workflow">Service Ticket Workflow</a>
-        <a href="#service-reports">Service Reports (Draft &amp; Final)</a>
+        <a href="#service-reports">Service Reports</a>
         <a href="#replacement">Replacement Jobs</a>
-        <a href="#due-for-service">Due for Service &amp; Planning</a>
-        <a href="#settings">Settings (Master Data)</a>
+        <a href="#due-for-service">Due for Service</a>
+        <a href="#settings">Settings</a>
         <a href="#statuses">Status Reference</a>
       </nav>
 
       <article>
-        <h2 id="overview">Overview</h2>
-        <p>Waterade tracks a fleet of water-dispenser machines deployed across customer sites (mostly care homes). The app is the single place to manage the whole lifecycle of every unit — from stock, through delivery to a customer as a <strong>trial</strong> or <strong>rental</strong>, through routine and reactive <strong>service</strong>, to <strong>replacement</strong> or write-off.</p>
-        <p>The core building blocks are:</p>
+        <h2 id="overview"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></span>Overview</h2>
+        <p class="lead">Waterade tracks a fleet of water-dispenser machines deployed across customer sites (mostly care homes). It is the single place to manage the whole life of every unit — from stock, to delivery as a <b>trial</b> or <b>rental</b>, through routine and reactive <b>service</b>, to <b>replacement</b> or write-off.</p>
+
+        <h3>The building blocks</h3>
+        <div class="qgrid">
+          <a class="qcard" href="#customers" onclick="jump('customers')"><div class="qic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div><div class="qt">Customers</div><div class="qd">Homes &amp; sites with a unique client reference.</div></a>
+          <a class="qcard" href="#machines" onclick="jump('machines')"><div class="qic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div><div class="qt">Machines</div><div class="qd">Every unit, by serial, with full history.</div></a>
+          <a class="qcard" href="#deliveries" onclick="jump('deliveries')"><div class="qic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="qt">Deliveries</div><div class="qd">Send a machine out as trial or rental.</div></a>
+          <a class="qcard" href="#tickets" onclick="jump('tickets')"><div class="qic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M9 9h6M9 13h4"/></svg></div><div class="qt">Service Tickets</div><div class="qd">Collect, service and return machines.</div></a>
+          <a class="qcard" href="#replacement" onclick="jump('replacement')"><div class="qic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div><div class="qt">Replacement Jobs</div><div class="qd">Swap a faulty unit while it's serviced.</div></a>
+          <a class="qcard" href="#invoicing" onclick="jump('invoicing')"><div class="qic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="qt">Invoicing</div><div class="qd">Track rental invoices &amp; plan by area.</div></a>
+        </div>
+
+        <h2 id="lifecycle"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg></span>Machine Lifecycle</h2>
+        <p>Every machine follows the same journey. Knowing it makes the rest of the app fall into place:</p>
+        <div class="flow">
+          <div class="flow-step"><div class="fs-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div class="fs-t">In Stock</div><div class="fs-d">Added to the fleet</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="fs-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="fs-t">Delivered</div><div class="fs-d">Trial or rental</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="fs-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="fs-t">In Use</div><div class="fs-d">At the customer</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="fs-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="fs-t">Serviced</div><div class="fs-d">Ticket workflow</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step"><div class="fs-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg></div><div class="fs-t">Returned</div><div class="fs-d">Back to stock / off</div></div>
+        </div>
+        <div class="box info"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><div>If a unit can't be repaired on site, a <b>Replacement Job</b> sends a working machine to the customer while the original comes in for service — the two paths run in parallel.</div></div>
+
+        <h2 id="navigation"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span>Getting Around</h2>
+        <p>A persistent menu moves you between the main areas. From anywhere you can reach:</p>
         <ul>
-          <li><strong>Customers</strong> — the homes / locations where machines are deployed, each with a unique client reference.</li>
-          <li><strong>Machines</strong> — every individual unit, identified by its serial number, with full history and component-replacement tracking.</li>
-          <li><strong>Deliveries, Trials &amp; Rentals</strong> — how a machine gets to a customer and on what commercial basis.</li>
-          <li><strong>Service Tickets</strong> — the workflow for collecting, receiving, servicing, and returning machines.</li>
-          <li><strong>Replacement Jobs</strong> — swapping a faulty unit for a working one while the original is serviced.</li>
-          <li><strong>Invoicing &amp; Planning</strong> — rental invoice tracking and proactive service planning by area.</li>
+          <li><b>Machines</b> — the full fleet list (the app opens here).</li>
+          <li><b>Fleet Kanban</b> — every machine grouped visually by status.</li>
+          <li><b>Machines Due for Service</b> — units needing proactive service.</li>
+          <li><b>Service Tickets</b> — all open and closed tickets (list &amp; kanban).</li>
+          <li><b>Customers</b> — every home / site.</li>
+          <li><b>Rentals</b> — active contracts, with Invoice Tracking &amp; Rentals Report.</li>
+          <li><b>Trials</b> — active and historical trial deliveries.</li>
+          <li><b>Replacement Jobs</b> — all replacement jobs across tickets.</li>
+          <li><b>Settings</b> — master data (Customer Groups &amp; Regions).</li>
         </ul>
-        <div class="info-box">The typical lifecycle: a machine is added to stock → delivered to a customer as a trial or rental → serviced periodically or when a fault is reported (via a service ticket) → optionally swapped out with a replacement job → eventually collected back to stock or written off.</div>
+        <div class="box tip"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span><div>Most lists support search and filters, and every row has an action (an eye icon or button) to open its full detail view.</div></div>
 
-        <h2 id="navigation">Getting Around</h2>
-        <p>The app uses a persistent menu to move between the main areas. From anywhere you can reach:</p>
+        <h2 id="customers"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>Customers</h2>
+        <p>Customers are the locations that own, rent or trial dispensers. Each has a unique <b>client reference</b> (e.g. <code>CH108</code>, <code>OAK107</code>) that links machines, rentals, trials and tickets back to the home.</p>
+        <h3>Create a customer</h3>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><b>Open Customers → Add Customer.</b><p>Start a new customer record.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><b>Fill in the details.</b><p>Home / site name, client reference, customer group, region, county and contacts (name, phone, email, address, postcode).</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><b>Save.</b><p>The client reference must be unique — a duplicate is blocked with a warning. Groups &amp; regions come from <a href="#settings" onclick="jump('settings')">Settings</a>.</p></div></div>
+        </div>
+        <h3>The customer profile</h3>
+        <p>Opening a customer shows everything in one place: <b>Customer Information</b> (group, region, county, contacts, notes), <b>Delivered Machines</b> (every unit on site with status, delivery date and last service), <b>Service History</b> (all tickets with resolution), and an <b>Add Rental</b> shortcut.</p>
+        <div class="box warn"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div>A customer that still has machines or history linked cannot be deleted — the app blocks this with a <em>Cannot Delete Customer</em> message to protect the audit trail.</div></div>
+
+        <h2 id="machines"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/></svg></span>Machines</h2>
+        <p>The <b>Machines</b> screen is the master fleet list. Each machine is identified by its <b>serial number</b> and also carries a friendly <b>machine number</b>, birth date, current status, current home, last service date, and component-replacement dates (fan, motor, condenser).</p>
+        <h3>Add a machine</h3>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><b>Machines → Add New Machine.</b></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><b>Enter serial number, machine number and birth date.</b><p>Set the initial status (typically <code>new_stock</code>).</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><b>Add Machine.</b><p>Serial and machine number must both be unique; missing required fields are flagged before saving.</p></div></div>
+        </div>
+        <p><b>Bulk import:</b> use <b>Import</b> to upload many units from a spreadsheet at once. <b>Filter &amp; search:</b> narrow by status or region, or search by serial / machine number, then click a row to open its detail view.</p>
+
+        <h2 id="machine-detail"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>Machine Detail &amp; History</h2>
+        <p>The detail view is the complete record for one unit:</p>
         <ul>
-          <li><strong>Machines</strong> — the full fleet list (the app opens here by default).</li>
-          <li><strong>Fleet Kanban</strong> — every machine grouped visually by status.</li>
-          <li><strong>Machines Due for Service</strong> — units needing proactive service.</li>
-          <li><strong>Service Tickets</strong> — all open and closed tickets (list and kanban).</li>
-          <li><strong>Customers</strong> — every home / site.</li>
-          <li><strong>Rentals</strong> — active rental contracts (with Invoice Tracking and Rentals Report).</li>
-          <li><strong>Trials</strong> — active and historical trial deliveries.</li>
-          <li><strong>Replacement Jobs</strong> — all replacement jobs across tickets.</li>
-          <li><strong>Settings</strong> — master data (Customer Groups &amp; Regions).</li>
-        </ul>
-        <p>Most list screens support searching and filtering, and every row has an action (usually an eye icon or a button) to open the full detail view for that record.</p>
-
-        <h2 id="customers">Customers</h2>
-        <p>Customers represent the locations that own, rent or trial dispensers. Each customer has a unique <strong>client reference</strong> (e.g. <code>CH108</code>, <code>OAK107</code>) used across the system to link machines, rentals, trials and tickets back to a home.</p>
-        <h3>Creating a new customer</h3>
-        <ol>
-          <li>Open <strong>Customers</strong> and click <strong>Add Customer</strong>.</li>
-          <li>Fill in the home / site name, client reference, customer group, region, county and contact details (contact name, phone, email, address, postcode).</li>
-          <li>Add any notes, then <strong>Add Customer</strong>. The client reference must be unique — a duplicate is blocked with a warning.</li>
-        </ol>
-        <p>The customer groups and regions available in the dropdowns are managed centrally under <a href="#settings">Settings</a>.</p>
-        <h3>The customer detail view</h3>
-        <p>Opening a customer shows their full profile in one place:</p>
-        <ul>
-          <li><strong>Customer Information</strong> — group, region, county, contact, phone, email, address, postcode and notes.</li>
-          <li><strong>Delivered Machines</strong> — every unit currently at that site with serial, machine number, status, delivery date and last service.</li>
-          <li><strong>Service History</strong> — all tickets raised for that customer with date of call, machines involved and resolution.</li>
-          <li><strong>Add Rental</strong> — start a new rental for the customer directly from their profile.</li>
-        </ul>
-        <div class="warn-box">A customer that still has machines or history linked to it cannot be deleted — the app blocks this with a <em>Cannot Delete Customer</em> message to protect the audit trail.</div>
-
-        <h2 id="machines">Machines</h2>
-        <p>The <strong>Machines</strong> screen is the master fleet list. Each machine is uniquely identified by its <strong>serial number</strong> and also carries a friendly <strong>machine number</strong>, birth date, current status, the home it is currently at, last service date and component-replacement dates (fan, motor, condenser).</p>
-        <h3>Creating a new machine</h3>
-        <ol>
-          <li>On the <strong>Machines</strong> screen click <strong>Add New Machine</strong>.</li>
-          <li>Enter the serial number, machine number and birth date, and set the initial status (typically <code>new_stock</code>).</li>
-          <li>Click <strong>Add Machine</strong>. Both the serial number and the machine number must be unique — duplicates are blocked, and any missing required fields are flagged before saving.</li>
-        </ol>
-        <h3>Importing machines in bulk</h3>
-        <p>Use the <strong>Import</strong> button on the Machines screen to upload many units at once from a spreadsheet, instead of adding them one by one.</p>
-        <h3>Filtering and searching</h3>
-        <p>Use the status and region filters at the top of the list to narrow the fleet, or search by serial / machine number. Click a row to open the machine's full detail view.</p>
-
-        <h2 id="machine-detail">Machine Detail &amp; History</h2>
-        <p>The machine detail view is the complete record for a single unit:</p>
-        <ul>
-          <li><strong>Machine Identity</strong> — serial number, machine age, birth date, last serviced date and current status.</li>
-          <li><strong>Component Replacements</strong> — when the fan, motor and condenser were last replaced (or "Never").</li>
-          <li><strong>Current Location</strong> — the home it was delivered to, when it was sent, and how many days it has been on site.</li>
-          <li><strong>Comments &amp; Notes</strong> — free-text notes recorded against the machine.</li>
+          <li><b>Machine Identity</b> — serial, machine age, birth date, last serviced, current status.</li>
+          <li><b>Component Replacements</b> — when the fan, motor and condenser were last replaced (or "Never").</li>
+          <li><b>Current Location</b> — the home, when it was sent, and days on site.</li>
+          <li><b>Comments &amp; Notes</b> — free-text notes against the machine.</li>
         </ul>
         <h3>Correcting the serial or machine number</h3>
-        <p>Click <strong>Edit</strong> → <strong>Edit Machine Identity</strong> to correct a serial or machine number. This is only available while the machine is <strong>New Stock</strong>, and the new values must still be unique. There is also a <strong>Correct Serial</strong> option for fixing a mis-recorded serial on a machine already in the field.</p>
-        <h3>Acting on a machine</h3>
-        <p>From the detail view you can jump straight into common actions: <strong>View Full History</strong> (the complete service timeline), <strong>Create Service Ticket</strong> for the machine, <strong>Allocate</strong> it, or <strong>View Customer Profile</strong> for the site it is currently deployed at.</p>
+        <p>Click <b>Edit → Edit Machine Identity</b> to correct a serial or machine number — only available while the machine is <b>New Stock</b>, and the new values must stay unique. <b>Correct Serial</b> fixes a mis-recorded serial on a machine already in the field.</p>
+        <h3>Act on a machine</h3>
+        <p>Jump straight into <b>View Full History</b> (the complete service timeline), <b>Create Service Ticket</b>, <b>Allocate</b>, or <b>View Customer Profile</b> for the site it is deployed at.</p>
 
-        <h2 id="kanban">Fleet Kanban</h2>
-        <p>The <strong>Fleet Kanban</strong> gives a visual board of every machine grouped by its current status. Each card shows the serial number, the home it is at, and how long it has been in the current state. Use it for an at-a-glance picture of where the fleet is bottlenecked — for example, a tall <em>With Us to Be Serviced</em> column means intake is backed up. Click any card to open the machine's detail view, or switch to <strong>List View</strong> at any time.</p>
-        <div class="info-box">The kanban is a read-only overview — status changes still happen through service tickets, rentals, trials and deliveries, not by dragging cards.</div>
+        <h2 id="kanban"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="18"/><rect x="10" y="3" width="6" height="12"/><rect x="17" y="3" width="4" height="8"/></svg></span>Fleet Kanban</h2>
+        <p>A visual board of every machine grouped by status. Each card shows the serial, the home it's at, and how long it has been in the current state. Use it to see where the fleet is bottlenecked — a tall <em>With Us to Be Serviced</em> column means intake is backed up. Click a card to open the machine, or switch to <b>List View</b> any time.</p>
+        <div class="box info"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><div>The kanban is a read-only overview — status changes happen through tickets, rentals, trials and deliveries, not by dragging cards.</div></div>
 
-        <h2 id="deliveries">Deliveries</h2>
-        <p>The <strong>Deliveries</strong> screen is the fast path for getting a machine out to a customer, whether as a <strong>trial</strong> or a <strong>rental</strong>. It lists all deliveries with the date sent, home, serial, type, status and (for trials) the trial end date, and highlights <strong>Trials Ending Soon</strong> so nothing slips.</p>
-        <h3>Creating a delivery</h3>
-        <ol>
-          <li>Click <strong>New Delivery</strong>.</li>
-          <li>Choose the <strong>Delivery Type</strong> — Trial or Rental.</li>
-          <li>Select the machine and the customer.</li>
-          <li>Set the dates. For a trial, the <strong>trial end date is automatically set to 28 days from the delivery date</strong>. For a rental, fill in the rental details.</li>
-          <li>Click <strong>Create Delivery</strong>. The machine flips to the appropriate deployed status and appears in the Trials or Rentals lists.</li>
-        </ol>
-        <p>From the Deliveries list you can also <strong>Convert</strong> a trial to a rental or <strong>Return</strong> a machine.</p>
+        <h2 id="deliveries"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>Deliveries</h2>
+        <p>The fast path for getting a machine out to a customer as a <b>trial</b> or a <b>rental</b>. The list shows every delivery with date sent, home, serial, type, status and (for trials) the end date, and highlights <b>Trials Ending Soon</b>.</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><b>New Delivery.</b></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><b>Choose the Delivery Type</b> — Trial or Rental.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><b>Select the machine and customer.</b></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body"><b>Set the dates.</b><p>For a trial the end date is set automatically to <b>28 days</b> from the delivery date. For a rental, fill in the rental details.</p></div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-body"><b>Create Delivery.</b><p>The machine flips to the right deployed status and appears in the Trials or Rentals list.</p></div></div>
+        </div>
+        <p>From the list you can also <b>Convert</b> a trial to a rental or <b>Return</b> a machine.</p>
 
-        <h2 id="trials">Trials</h2>
-        <p>Trials are short-term loaner deployments — a fixed <strong>one-month (28-day) duration</strong> — used when a prospective customer wants to evaluate a machine before committing. The <strong>Trials</strong> screen lists every trial with customer, client reference, serial and machine number, delivery date, tracking number, trial end date and status, and calls out <strong>Trials Ending Soon</strong> with the days left.</p>
-        <h3>Running a trial end-to-end</h3>
-        <ol>
-          <li><strong>New Trial</strong> (or a Trial delivery) sends the machine out; the trial end date is set 28 days ahead.</li>
-          <li>When the trial concludes you either <strong>Convert</strong> it to a rental (the machine stays deployed) or recall the machine.</li>
-          <li>To recall, click <strong>Schedule Collection</strong> — enter the planned collection date and the courier tracking number.</li>
-          <li>When the unit arrives back, click <strong>Received</strong> → <strong>Confirm Received</strong> to mark it received at the workshop and record the return reason.</li>
-        </ol>
+        <h2 id="trials"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Trials</h2>
+        <p>Short-term loaner deployments — a fixed <b>one-month (28-day)</b> duration — for prospects evaluating a machine. The list shows customer, client ref, serial, machine number, delivery date, tracking number, end date and status, and calls out <b>Trials Ending Soon</b> with days left.</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><b>New Trial</b> (or a Trial delivery) sends the machine out; the end date is set 28 days ahead.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><b>At the end, Convert to a rental</b> (the machine stays deployed) — or recall it.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><b>Schedule Collection.</b><p>Enter the planned collection date and courier tracking number.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body"><b>Received → Confirm Received.</b><p>Mark the unit received at the workshop and record the return reason.</p></div></div>
+        </div>
 
-        <h2 id="rentals">Rentals</h2>
-        <p>Rentals cover machines deployed on a paid, ongoing basis. The <strong>Rentals</strong> screen lists every active rental contract with customer, client reference, serial and machine number, shipping and delivery dates, tracking number, rental cost, first invoice date, invoice status, status, and (once ended) returned date and reason.</p>
-        <h3>Creating a rental</h3>
-        <ol>
-          <li>Click <strong>New Rental</strong> (or <strong>Add Rental</strong> from a customer's profile).</li>
-          <li>Select the customer and the machine, and set the shipping / delivery dates, tracking number and rental cost.</li>
-          <li>Click <strong>Create Rental</strong>. The machine status becomes deployed and the rental appears in the active list.</li>
-        </ol>
-        <h3>Managing a live rental</h3>
+        <h2 id="rentals"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>Rentals</h2>
+        <p>Machines deployed on a paid, ongoing basis. The list shows customer, client ref, serial &amp; machine number, shipping / delivery dates, tracking number, rental cost, first invoice date, invoice status, status, and (once ended) returned date and reason.</p>
+        <h3>Create a rental</h3>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><b>New Rental</b> (or <b>Add Rental</b> from a customer's profile).</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><b>Select customer &amp; machine, set dates, tracking and rental cost.</b></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><b>Create Rental.</b><p>The machine becomes deployed and appears in the active list.</p></div></div>
+        </div>
+        <h3>Manage a live rental</h3>
         <ul>
-          <li><strong>Edit Invoice Details</strong> — update the first invoice date, invoice number and completion status for billing.</li>
-          <li><strong>Replace Machine (wrong serial)</strong> → <strong>Confirm Swap</strong> — correct the rental if the wrong unit was recorded against it.</li>
-          <li><strong>Schedule Collection from Customer</strong> — when a rental ends, enter the collection date and tracking number.</li>
-          <li><strong>Mark Received at Workshop</strong> → <strong>Confirm Received</strong> — close out the return once the machine is back.</li>
+          <li><b>Edit Invoice Details</b> — update first invoice date, invoice number and completion status.</li>
+          <li><b>Replace Machine (wrong serial) → Confirm Swap</b> — correct a rental recorded against the wrong unit.</li>
+          <li><b>Schedule Collection from Customer</b> — when a rental ends, enter the collection date and tracking.</li>
+          <li><b>Mark Received at Workshop → Confirm Received</b> — close out the return once the machine is back.</li>
         </ul>
 
-        <h2 id="invoicing">Invoice Tracking &amp; Rentals Report</h2>
-        <p>Two reports, reachable from the Rentals screen, support billing:</p>
+        <h2 id="invoicing"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Invoicing &amp; Reports</h2>
+        <p>Two reports, reached from the Rentals screen, support billing:</p>
         <h3>Invoice Tracking</h3>
-        <p><strong>Invoice Tracking</strong> lists each rented machine with its client reference (CRN), region, delivered date, first invoice date, invoice <strong>frequency</strong>, rental cost, the previous invoice date, the <strong>next invoice date</strong> and how long until it is <strong>due</strong>. Use it to see at a glance which rentals are coming up for invoicing.</p>
+        <p>Lists each rented machine with its client reference (CRN), region, delivered date, first invoice date, invoice <b>frequency</b>, rental cost, previous invoice date, the <b>next invoice date</b> and how long until it is <b>due</b> — so you can see which rentals are coming up for invoicing.</p>
         <h3>Rentals Report</h3>
-        <p>The <strong>Rentals Report</strong> lists all customers with active rentals, grouped for invoicing — showing CRN, region, customer group, customer name and total rental cost. Drill into a customer to see their rental detail (Customer Rentals view), and from there jump to the full customer profile.</p>
+        <p>Lists all customers with active rentals, grouped for invoicing — CRN, region, customer group, customer name and total rental cost. Drill into a customer to see their rental detail, then jump to the full profile.</p>
 
-        <h2 id="tickets">Creating a Service Ticket</h2>
-        <p>A service ticket is opened whenever one or more machines at a customer need attention. Creation is a guided four-step form:</p>
-        <ol>
-          <li><strong>Step 1 — Customer &amp; Machine Selection.</strong> Pick the customer, review their details (site name, account ref, group, region, and a summary of their machines — total, deployed, trials, under service), then tick every machine that needs attention on this visit.</li>
-          <li><strong>Step 2 — Call &amp; Request Details.</strong> Record when the call was received, what was requested (WA Requested), the customer reference number and the quantity to be serviced.</li>
-          <li><strong>Step 3 — Reported Faults.</strong> Select all the faults the customer reported.</li>
-          <li><strong>Step 4 — Issue Details.</strong> Describe the issue as reported, and record any advice given to the customer.</li>
-        </ol>
-        <p>Click <strong>Add Service Ticket</strong> to submit. Required fields are validated first (a <em>Required details missing</em> prompt appears if anything essential is blank). On submit the ticket is created with status <strong>In transit to us</strong> and a <strong>Job Sheet</strong> is generated automatically.</p>
-        <div class="info-box">You can also start a ticket straight from a machine's detail view, or from the Service Tickets <strong>Kanban</strong> using <strong>New Ticket</strong>.</div>
+        <h2 id="tickets"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M9 9h6M9 13h4"/></svg></span>Creating a Service Ticket</h2>
+        <p>A ticket is opened whenever machines at a customer need attention. Creation is a guided <b>four-step form</b>:</p>
+        <div class="track">
+          <div class="track-item"><div class="track-dot">1</div><h4>Customer &amp; Machine Selection</h4><p>Pick the customer, review their details (site, account ref, group, region, machine summary), then tick every machine that needs attention.</p></div>
+          <div class="track-item"><div class="track-dot">2</div><h4>Call &amp; Request Details</h4><p>Record when the call was received, what was requested (WA Requested), the customer reference number and the quantity to be serviced.</p></div>
+          <div class="track-item"><div class="track-dot">3</div><h4>Reported Faults</h4><p>Select all the faults the customer reported.</p></div>
+          <div class="track-item"><div class="track-dot">4</div><h4>Issue Details</h4><p>Describe the issue as reported and record any advice given to the customer.</p></div>
+        </div>
+        <p>Click <b>Add Service Ticket</b> to submit. Required fields are validated first. On submit the ticket is created with status <b>In transit to us</b> and a <b>Job Sheet</b> is generated automatically.</p>
+        <div class="box tip"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span><div>You can also start a ticket from a machine's detail view, or from the Service Tickets <b>Kanban</b> with <b>New Ticket</b>.</div></div>
 
-        <h2 id="ticket-workflow">Service Ticket Workflow</h2>
-        <p>The ticket detail view is where a ticket is worked from creation to closure. The header shows the ticket number, customer, priority, dates and the reported issue, and a live tally of the machines on the ticket across the stages: <strong>Total, In Transit, Awaiting Intake, Ready for Service, In Service, Completed, Written Off</strong>.</p>
-        <p>The end-to-end sequence is:</p>
-        <ol>
-          <li><strong>Schedule Collection</strong> — set or update the date the faulty machine is to be collected from the customer site.</li>
-          <li><strong>Receive Machines</strong> — when the units arrive at the workshop, record the date received. The ticket moves to <em>With Us to Be Serviced</em> and each machine is updated.</li>
-          <li><strong>Verify Intake</strong> — for each received machine, confirm the physical unit matches the record and add optional intake notes. The machine becomes <em>Ready for Service</em>.</li>
-          <li><strong>Generate Service Report</strong> — set the service type, owner, category, location, technician and dates. This produces a <strong>Draft Service Report</strong> and marks the machine <em>In Service</em>.</li>
-          <li><strong>Complete Service</strong> or <strong>Write Off</strong> — close out each machine. When every machine reaches one of these, the ticket auto-closes.</li>
-        </ol>
+        <h2 id="ticket-workflow"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Service Ticket Workflow</h2>
+        <p>The ticket detail view is where a ticket is worked from creation to closure. The header shows a live tally of the machines across the stages: <b>Total, In Transit, Awaiting Intake, Ready for Service, In Service, Completed, Written Off</b>. The end-to-end sequence:</p>
+        <div class="track">
+          <div class="track-item"><div class="track-dot">1</div><h4>Schedule Collection</h4><p>Set the date the faulty machine is to be collected from the customer site.</p></div>
+          <div class="track-item"><div class="track-dot">2</div><h4>Receive Machines</h4><p>When units arrive, record the date received. The ticket moves to <em>With Us to Be Serviced</em> and each machine updates.</p></div>
+          <div class="track-item"><div class="track-dot">3</div><h4>Verify Intake</h4><p>For each machine, confirm the physical unit matches the record and add optional intake notes. It becomes <em>Ready for Service</em>.</p></div>
+          <div class="track-item"><div class="track-dot">4</div><h4>Generate Service Report</h4><p>Set service type, owner, category, location, technician and dates. Produces a <b>Draft Service Report</b> and marks the machine <em>In Service</em>.</p></div>
+          <div class="track-item"><div class="track-dot">5</div><h4>Complete Service or Write Off</h4><p>Close out each machine. When every machine reaches one of these, the ticket <b>auto-closes</b>.</p></div>
+        </div>
         <h3>Other actions on a ticket</h3>
         <ul>
-          <li><strong>Close as Phone Support</strong> — if the issue is resolved over the phone, record the advice given and close the ticket without collecting the machine.</li>
-          <li><strong>Relabel Serial (New Panel Fitted)</strong> — assign a new serial and machine number when a machine's panel is replaced.</li>
-          <li><strong>Correct Serial</strong> — fix a mis-recorded serial on a received machine.</li>
-          <li><strong>Replacement</strong> — jump to Replacement Jobs to swap a machine out (see below).</li>
-          <li><strong>Report</strong> / <strong>View Draft Service Report</strong> / <strong>View Final Service Report</strong> — open or download the ticket's job sheet and the service reports.</li>
+          <li><b>Close as Phone Support</b> — resolved on the phone: record the advice and close without collecting.</li>
+          <li><b>Relabel Serial (New Panel Fitted)</b> — assign a new serial &amp; machine number when a panel is replaced.</li>
+          <li><b>Correct Serial</b> — fix a mis-recorded serial on a received machine.</li>
+          <li><b>Replacement</b> — jump to Replacement Jobs to swap a machine out.</li>
+          <li><b>Report / View Draft / View Final</b> — open or download the job sheet and service reports.</li>
         </ul>
-        <p>An audit entry is recorded at each transition, so you can always trace who did what and when from the ticket.</p>
+        <p>An audit entry is recorded at each transition, so you can always trace who did what and when.</p>
 
-        <h2 id="service-reports">Service Reports (Draft &amp; Final)</h2>
-        <p>Each serviced machine produces two distinct PDF reports that serve different purposes in the workflow:</p>
+        <h2 id="service-reports"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>Service Reports (Draft &amp; Final)</h2>
+        <p>Each serviced machine produces two PDF reports with different purposes:</p>
         <table class="status-table">
-          <thead>
-            <tr><th>Report</th><th>Generated when</th><th>Purpose</th></tr>
-          </thead>
+          <thead><tr><th>Report</th><th>Generated when</th><th>Purpose</th></tr></thead>
           <tbody>
-            <tr>
-              <td><strong>Draft Service Report</strong></td>
-              <td>Office clicks <em>Generate Service Report</em> on a verified machine.</td>
-              <td>Printable working sheet carried with the machine for the engineer. Includes the ticket number, customer, machine serial &amp; number, service type, technician and dates — the engineer marks it up by hand with findings, parts replaced and notes.</td>
-            </tr>
-            <tr>
-              <td><strong>Final Service Report</strong></td>
-              <td>Office clicks <em>Complete Service</em> after the engineer returns the marked-up draft.</td>
-              <td>Permanent digital record of the completed service. Consolidates the technician notes (transcribed by the office from the engineer's paper), parts replaced with dates, completion date, completion remarks and any uploaded service photos into a single archived PDF.</td>
-            </tr>
+            <tr><td><b>Draft Service Report</b></td><td>Office clicks <em>Generate Service Report</em> on a verified machine.</td><td>Printable working sheet carried with the machine. Includes ticket number, customer, serial &amp; machine number, service type, technician and dates — the engineer marks it up by hand with findings, parts replaced and notes.</td></tr>
+            <tr><td><b>Final Service Report</b></td><td>Office clicks <em>Complete Service</em> after the marked-up draft comes back.</td><td>Permanent digital record. Consolidates the transcribed technician notes, parts replaced with dates, completion date, remarks and any service photos into one archived PDF.</td></tr>
           </tbody>
         </table>
-        <p>The <strong>Complete Service</strong> popup captures the technician notes, the fan / motor / condenser parts replaced with dates, the service completion date, up to ten service photos, and completion remarks. Both reports are accessible from the machine's card via <strong>View Draft Service Report</strong> and <strong>View Final Service Report</strong>.</p>
-        <div class="info-box">
-          <strong>End-to-end flow:</strong> machine arrives → intake verified → office generates &amp; prints the Draft Report → engineer services the machine and writes notes on the printout → office receives the marked-up paper → office opens Complete Service, transcribes the notes, ticks off parts replaced, uploads photos → the Final Report PDF is generated and stored against the machine.
+        <p>The <b>Complete Service</b> popup captures the technician notes, fan / motor / condenser parts replaced with dates, completion date, up to ten service photos, and completion remarks. Both reports open from the machine's card via <b>View Draft Service Report</b> and <b>View Final Service Report</b>.</p>
+        <div class="box info"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><div><b>End to end:</b> machine arrives → intake verified → print Draft Report → engineer services &amp; writes notes on it → office transcribes notes, ticks parts replaced, uploads photos in Complete Service → Final Report PDF is generated and stored against the machine.</div></div>
+        <div class="box warn"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div>On closure the repaired machine returns to <code>in_stock</code> and is held in the warehouse — it is <b>not</b> auto-reissued to the original customer. Any replacement sent earlier stays deployed on site.</div></div>
+
+        <h2 id="replacement"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>Replacement Jobs</h2>
+        <p>When a machine must be swapped rather than repaired on site, you create a <b>Replacement Job</b>. A job ties one or more replacement machines to a parent ticket and tracks courier &amp; tracking details for each swap.</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><b>From the ticket, open Replacement.</b><p>Reaches the replacement-jobs screen for that ticket.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><b>Assign a replacement for each machine.</b><p>Pick an in-stock unit and enter shipping details (courier, tracking) and send date. The card turns blue once saved.</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><b>Create Replacement Job.</b><p>Available once <em>all</em> machines are assigned. Use <b>Send Replacement</b> to dispatch.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body"><b>Close Job.</b><p>Completes the job when finished.</p></div></div>
         </div>
-        <div class="warn-box">On ticket closure the repaired machine returns to <code>in_stock</code> and is held in the warehouse — it is <strong>not</strong> automatically reissued to the original customer. Any replacement that was sent out earlier stays deployed at the customer site.</div>
+        <p>All replacement jobs across every ticket are listed under <b>Replacement Jobs</b> in the menu, each opening a detail view with its assignments and shipping status.</p>
 
-        <h2 id="replacement">Replacement Jobs</h2>
-        <p>When a machine has to be swapped out rather than repaired on site, you create a <strong>Replacement Job</strong>. A job ties one or more replacement machines to a parent service ticket and tracks the courier and tracking details for each swap.</p>
-        <h3>How replacement jobs work</h3>
-        <ol>
-          <li>From the service ticket, open <strong>Replacement</strong> to reach the replacement-jobs screen for that ticket.</li>
-          <li>Click <strong>Assign</strong> on each machine to pick its replacement from in-stock units and enter the shipping details (courier and tracking) and send date. The card turns blue once the replacement is saved.</li>
-          <li>Once <strong>all</strong> machines on the ticket are assigned, click <strong>Create Replacement Job</strong> to finalise it. Use <strong>Send Replacement</strong> to dispatch.</li>
-          <li>When the job is finished, <strong>Close Job</strong> completes it.</li>
-        </ol>
-        <p>All replacement jobs across every ticket are listed under <strong>Replacement Jobs</strong> in the menu, each opening a detail view with its machine assignments and shipping status.</p>
+        <h2 id="due-for-service"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Due for Service &amp; Planning by Area</h2>
+        <p><b>Machines Due for Service</b> lists units needing proactive service based on their last service date — serial, home, location, client ref, last serviced and how far due. This drives scheduled maintenance rather than waiting for a fault.</p>
+        <p>From there, <b>Plan by Area</b> opens <b>Service Planning by Area</b>, which groups due machines by home and postcode with a count of machines due — so a visit can cover several nearby sites in one trip.</p>
 
-        <h2 id="due-for-service">Due for Service &amp; Planning by Area</h2>
-        <p><strong>Machines Due for Service</strong> lists units that need proactive service based on their last service date, showing serial, home name, location, client reference, last serviced date and how far due they are. This drives scheduled maintenance rather than waiting for a fault to be reported.</p>
-        <p>From there, <strong>Plan by Area</strong> opens <strong>Service Planning by Area</strong>, which groups the due machines by home and postcode with a count of machines due and the last serviced date — so a visit can be planned to cover several nearby sites in one trip.</p>
-
-        <h2 id="settings">Settings (Master Data)</h2>
-        <p>The <strong>Settings</strong> screen manages the curated lists used across the customer form. Keeping these tidy keeps customer data consistent.</p>
+        <h2 id="settings"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Settings (Master Data)</h2>
+        <p>The <b>Settings</b> screen manages the curated lists used across the customer form — keeping them tidy keeps customer data consistent.</p>
         <ul>
-          <li><strong>Customer Groups</strong> — add, rename, delete and import groups. The list shows how many customers use each group; a group still in use cannot be deleted. Adding a duplicate name is blocked with a warning.</li>
-          <li><strong>Regions</strong> — add, rename, delete and import regions with their region codes. Duplicate region names or codes are blocked with a conflict warning.</li>
+          <li><b>Customer Groups</b> — add, rename, delete and import groups. Shows how many customers use each; a group still in use can't be deleted; duplicate names are blocked.</li>
+          <li><b>Regions</b> — add, rename, delete and import regions with their codes. Duplicate names or codes are blocked with a conflict warning.</li>
         </ul>
 
-        <h2 id="statuses">Status Reference</h2>
+        <h2 id="statuses"><span class="hicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>Status Reference</h2>
         <table class="status-table">
-          <thead>
-            <tr><th>Status</th><th>Meaning</th></tr>
-          </thead>
+          <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
           <tbody>
-            <tr><td><span class="status-pill" style="background:#DBEAFE;color:#2563EB">new_stock</span></td><td>Newly added unit, never deployed. Identity (serial / machine number) can still be corrected in this state.</td></tr>
+            <tr><td><span class="status-pill" style="background:#DBEAFE;color:#2563EB">new_stock</span></td><td>Newly added unit, never deployed. Identity can still be corrected in this state.</td></tr>
             <tr><td><span class="status-pill" style="background:#CCFBF1;color:#0D9488">in_stock</span></td><td>Available in the warehouse for assignment.</td></tr>
             <tr><td><span class="status-pill" style="background:#D1FAE5;color:#059669">deployed</span></td><td>At a customer site and in active use (rental or converted).</td></tr>
             <tr><td><span class="status-pill" style="background:#E0F2FE;color:#0369A1">trial</span></td><td>Out with a customer on a 28-day trial.</td></tr>
@@ -630,8 +491,7 @@
             <tr><td><span class="status-pill" style="background:#E5E7EB;color:#374151">written_off</span></td><td>Permanently retired from the fleet.</td></tr>
           </tbody>
         </table>
-
-        <div class="info-box">Need to see one of these flows in action? Check the <a href="#" onclick="goTo('videos'); return false;">Walkthrough Videos</a>.</div>
+        <div class="box tip"><span class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><div>Want to see a flow in action? Check the <a href="#" onclick="goTo('videos'); return false;">Walkthrough Videos</a>.</div></div>
       </article>
     </div>
   </main>
@@ -658,107 +518,36 @@
 
       <div class="video-grid">
         <div class="video-card" id="vid-customer">
-          <div class="video-card-head">
-            <div class="num">1</div>
-            <div>
-              <h3>How to create a new Customer</h3>
-              <p>Adding a home / location to the system, including client reference and region.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/3220ca3aa8414c46969a98c8eb06ca23" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">1</div><div><h3>How to create a new Customer</h3><p>Adding a home / location to the system, including client reference and region.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/3220ca3aa8414c46969a98c8eb06ca23" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
-
         <div class="video-card" id="vid-machine">
-          <div class="video-card-head">
-            <div class="num">2</div>
-            <div>
-              <h3>How to create a new Machine</h3>
-              <p>Adding a dispenser to the fleet — serial number, birth date, status, and customer link.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/f5ff4a60952b422ebf7a596a8f2a1b36" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">2</div><div><h3>How to create a new Machine</h3><p>Adding a dispenser to the fleet — serial number, birth date, status, and customer link.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/f5ff4a60952b422ebf7a596a8f2a1b36" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
-
         <div class="video-card" id="vid-ticket">
-          <div class="video-card-head">
-            <div class="num">3</div>
-            <div>
-              <h3>How to create a Service Ticket</h3>
-              <p>Opening a ticket against one or more machines and triggering the service workflow.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/f1c7fe64b74c4be3a0aa55514c316198" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">3</div><div><h3>How to create a Service Ticket</h3><p>Opening a ticket against one or more machines and triggering the service workflow.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/f1c7fe64b74c4be3a0aa55514c316198" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
-
         <div class="video-card" id="vid-ticket-workflow">
-          <div class="video-card-head">
-            <div class="num">4</div>
-            <div>
-              <h3>Service Ticket Workflow &amp; Completion</h3>
-              <p>End-to-end ticket flow: receiving, verifying intake, generating the service report and closing out.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/16b24f04ca0a44fdad2bf8bd0451434f" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">4</div><div><h3>Service Ticket Workflow &amp; Completion</h3><p>End-to-end ticket flow: receiving, verifying intake, generating the service report and closing out.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/16b24f04ca0a44fdad2bf8bd0451434f" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
-
         <div class="video-card" id="vid-kanban">
-          <div class="video-card-head">
-            <div class="num">5</div>
-            <div>
-              <h3>Fleet Kanban Overview</h3>
-              <p>How to use the kanban board to see every machine grouped by status and spot bottlenecks.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/eb573556cd2f4eea973b86ee3c7ce588" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">5</div><div><h3>Fleet Kanban Overview</h3><p>How to use the kanban board to see every machine grouped by status and spot bottlenecks.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/eb573556cd2f4eea973b86ee3c7ce588" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
-
         <div class="video-card" id="vid-replacement">
-          <div class="video-card-head">
-            <div class="num">6</div>
-            <div>
-              <h3>How to create a Replacement Job</h3>
-              <p>Swapping out a machine for a replacement — assigning the unit, courier and tracking details.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/f75f2ff573844201bd02e1ae138a93f5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">6</div><div><h3>How to create a Replacement Job</h3><p>Swapping out a machine for a replacement — assigning the unit, courier and tracking details.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/f75f2ff573844201bd02e1ae138a93f5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
-
         <div class="video-card" id="vid-rental">
-          <div class="video-card-head">
-            <div class="num">7</div>
-            <div>
-              <h3>How to create a Rental</h3>
-              <p>Setting up a paid rental — selecting the customer, machine, rate and start date.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/1081711077c34494b6d0f01ab4459192" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">7</div><div><h3>How to create a Rental</h3><p>Setting up a paid rental — selecting the customer, machine, rate and start date.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/1081711077c34494b6d0f01ab4459192" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
-
         <div class="video-card" id="vid-trial">
-          <div class="video-card-head">
-            <div class="num">8</div>
-            <div>
-              <h3>How to create a Trial</h3>
-              <p>Setting up a short-term trial deployment for a prospective customer evaluation.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe src="https://www.loom.com/embed/13eaffb8d6824cd8a343b98e3bb0099e" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          </div>
+          <div class="video-card-head"><div class="num">8</div><div><h3>How to create a Trial</h3><p>Setting up a short-term trial deployment for a prospective customer evaluation.</p></div></div>
+          <div class="video-frame"><iframe src="https://www.loom.com/embed/13eaffb8d6824cd8a343b98e3bb0099e" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         </div>
       </div>
     </div>
@@ -775,18 +564,12 @@
     }
     document.getElementById('homeBtn').addEventListener('click', () => goTo('home'));
 
-    // Per-page scroll-spy: docs and videos each get their own TOC + section list
+    // smooth scroll used by in-content quick cards / links
+    function jump(id){ const t=document.getElementById(id); if(t){ window.scrollTo({top:t.offsetTop-90, behavior:'smooth'});} return false; }
+
     const tocSpec = [
-      {
-        pageId: 'page-docs',
-        tocId: 'toc',
-        sectionIds: ['overview','navigation','customers','machines','machine-detail','kanban','deliveries','trials','rentals','invoicing','tickets','ticket-workflow','service-reports','replacement','due-for-service','settings','statuses']
-      },
-      {
-        pageId: 'page-videos',
-        tocId: 'toc-videos',
-        sectionIds: ['vid-customer','vid-machine','vid-ticket','vid-ticket-workflow','vid-kanban','vid-replacement','vid-rental','vid-trial']
-      }
+      { pageId:'page-docs', tocId:'toc', sectionIds:['overview','lifecycle','navigation','customers','machines','machine-detail','kanban','deliveries','trials','rentals','invoicing','tickets','ticket-workflow','service-reports','replacement','due-for-service','settings','statuses'] },
+      { pageId:'page-videos', tocId:'toc-videos', sectionIds:['vid-customer','vid-machine','vid-ticket','vid-ticket-workflow','vid-kanban','vid-replacement','vid-rental','vid-trial'] }
     ];
 
     window.addEventListener('scroll', () => {
@@ -799,13 +582,10 @@
         const y = window.scrollY + 140;
         for (const s of sections) if (s.offsetTop <= y) current = s;
         if (!current) return;
-        links.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
-        });
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
       });
     });
 
-    // Smooth scroll for any TOC link
     document.querySelectorAll('.toc a').forEach(a => a.addEventListener('click', e => {
       const href = a.getAttribute('href');
       if (href && href.startsWith('#')) {
