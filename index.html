@@ -53,6 +53,7 @@
       cursor: pointer;
       font-weight: 500;
       transition: background 0.15s;
+      text-decoration: none;
     }
     .crumb:hover { background: #F3F4F6; color: #111827; }
 
@@ -147,7 +148,7 @@
     .section-head p { color: #6B7280; font-size: 15px; }
 
     /* Docs layout */
-    .docs-layout { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+    .docs-layout { display: grid; grid-template-columns: 240px 1fr; gap: 40px; }
     @media (max-width: 900px) { .docs-layout { grid-template-columns: 1fr; } }
 
     .toc {
@@ -155,6 +156,8 @@
       top: 100px;
       align-self: start;
       font-size: 14px;
+      max-height: calc(100vh - 130px);
+      overflow-y: auto;
     }
     .toc-title {
       text-transform: uppercase;
@@ -166,7 +169,7 @@
     }
     .toc a {
       display: block;
-      padding: 8px 12px;
+      padding: 7px 12px;
       color: #4B5563;
       text-decoration: none;
       border-left: 2px solid transparent;
@@ -222,6 +225,15 @@
       color: #1E40AF;
       font-size: 14px;
     }
+    .warn-box {
+      background: #FFFBEB;
+      border-left: 4px solid #F59E0B;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      color: #92400E;
+      font-size: 14px;
+    }
 
     .status-table {
       border: 1px solid #E5E7EB;
@@ -236,6 +248,7 @@
       padding: 12px 16px;
       text-align: left;
       border-bottom: 1px solid #E5E7EB;
+      vertical-align: top;
     }
     .status-table th {
       background: #F9FAFB;
@@ -252,6 +265,7 @@
       border-radius: 12px;
       font-size: 12px;
       font-weight: 600;
+      white-space: nowrap;
     }
 
     /* Videos */
@@ -277,6 +291,7 @@
       display: flex; align-items: center; justify-content: center;
       font-weight: 700;
       font-size: 14px;
+      flex-shrink: 0;
     }
     .video-card-head h3 {
       font-size: 18px;
@@ -323,7 +338,7 @@
       article h2 { margin-top: 28px; page-break-after: avoid; break-after: avoid-page; }
       article h3 { page-break-after: avoid; break-after: avoid-page; }
       article p, article li { orphans: 3; widows: 3; }
-      .info-box, .status-table { page-break-inside: avoid; break-inside: avoid; }
+      .info-box, .warn-box, .status-table { page-break-inside: avoid; break-inside: avoid; }
     }
   </style>
 </head>
@@ -353,7 +368,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         </div>
         <h2>Detailed Documentation</h2>
-        <p>A written guide covering customers, machines, fleet kanban, service tickets, replacement jobs, rentals and trials.</p>
+        <p>An end-to-end guide covering customers, machines, deliveries, trials, rentals, invoicing, service tickets, replacement jobs and proactive service planning.</p>
         <span class="arrow">Read the guide →</span>
       </button>
 
@@ -362,7 +377,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         </div>
         <h2>Walkthrough Videos</h2>
-        <p>Eight short Loom recordings — customers, machines, fleet kanban, service tickets &amp; workflow, replacement jobs, rentals and trials.</p>
+        <p>Short Loom recordings covering the most common day-to-day flows — customers, machines, kanban, service tickets, replacement jobs, rentals and trials.</p>
         <span class="arrow">Watch the videos →</span>
       </button>
     </div>
@@ -372,163 +387,231 @@
   <main class="container page" id="page-docs">
     <div class="section-head">
       <h1>Detailed Documentation</h1>
-      <p>Everything you need to know to operate the Waterade fleet management app day-to-day.</p>
+      <p>Everything you need to operate the Waterade fleet management app day-to-day, end to end.</p>
     </div>
 
     <div class="docs-layout">
       <nav class="toc" id="toc">
         <div class="toc-title">On this page</div>
         <a href="#overview" class="active">Overview</a>
+        <a href="#navigation">Getting Around</a>
         <a href="#customers">Customers</a>
         <a href="#machines">Machines</a>
+        <a href="#machine-detail">Machine Detail &amp; History</a>
         <a href="#kanban">Fleet Kanban</a>
-        <a href="#tickets">Service Tickets</a>
-        <a href="#ticket-workflow">Ticket Workflow & Completion</a>
+        <a href="#deliveries">Deliveries</a>
+        <a href="#trials">Trials</a>
+        <a href="#rentals">Rentals</a>
+        <a href="#invoicing">Invoice Tracking &amp; Rentals Report</a>
+        <a href="#tickets">Creating a Service Ticket</a>
+        <a href="#ticket-workflow">Service Ticket Workflow</a>
         <a href="#service-reports">Service Reports (Draft &amp; Final)</a>
         <a href="#replacement">Replacement Jobs</a>
-        <a href="#rentals">Rentals</a>
-        <a href="#trials">Trials</a>
+        <a href="#due-for-service">Due for Service &amp; Planning</a>
+        <a href="#settings">Settings (Master Data)</a>
         <a href="#statuses">Status Reference</a>
       </nav>
 
       <article>
         <h2 id="overview">Overview</h2>
-        <p>Waterade tracks a fleet of water dispenser machines deployed across customer sites (mostly care homes). The app gives you a single place to manage three things:</p>
+        <p>Waterade tracks a fleet of water-dispenser machines deployed across customer sites (mostly care homes). The app is the single place to manage the whole lifecycle of every unit — from stock, through delivery to a customer as a <strong>trial</strong> or <strong>rental</strong>, through routine and reactive <strong>service</strong>, to <strong>replacement</strong> or write-off.</p>
+        <p>The core building blocks are:</p>
         <ul>
-          <li><strong>Customers</strong> — the homes / locations where machines are deployed.</li>
-          <li><strong>Machines</strong> — every individual unit, identified by its serial number.</li>
-          <li><strong>Service tickets</strong> — when a machine needs intake, repair, replacement, or write-off.</li>
+          <li><strong>Customers</strong> — the homes / locations where machines are deployed, each with a unique client reference.</li>
+          <li><strong>Machines</strong> — every individual unit, identified by its serial number, with full history and component-replacement tracking.</li>
+          <li><strong>Deliveries, Trials &amp; Rentals</strong> — how a machine gets to a customer and on what commercial basis.</li>
+          <li><strong>Service Tickets</strong> — the workflow for collecting, receiving, servicing, and returning machines.</li>
+          <li><strong>Replacement Jobs</strong> — swapping a faulty unit for a working one while the original is serviced.</li>
+          <li><strong>Invoicing &amp; Planning</strong> — rental invoice tracking and proactive service planning by area.</li>
         </ul>
-        <p>The typical workflow is: a customer reports a fault → a service ticket is opened → the machine is collected → it's received at the workshop → it's verified, serviced, and either returned to the customer or written off.</p>
+        <div class="info-box">The typical lifecycle: a machine is added to stock → delivered to a customer as a trial or rental → serviced periodically or when a fault is reported (via a service ticket) → optionally swapped out with a replacement job → eventually collected back to stock or written off.</div>
+
+        <h2 id="navigation">Getting Around</h2>
+        <p>The app uses a persistent menu to move between the main areas. From anywhere you can reach:</p>
+        <ul>
+          <li><strong>Machines</strong> — the full fleet list (the app opens here by default).</li>
+          <li><strong>Fleet Kanban</strong> — every machine grouped visually by status.</li>
+          <li><strong>Machines Due for Service</strong> — units needing proactive service.</li>
+          <li><strong>Service Tickets</strong> — all open and closed tickets (list and kanban).</li>
+          <li><strong>Customers</strong> — every home / site.</li>
+          <li><strong>Rentals</strong> — active rental contracts (with Invoice Tracking and Rentals Report).</li>
+          <li><strong>Trials</strong> — active and historical trial deliveries.</li>
+          <li><strong>Replacement Jobs</strong> — all replacement jobs across tickets.</li>
+          <li><strong>Settings</strong> — master data (Customer Groups &amp; Regions).</li>
+        </ul>
+        <p>Most list screens support searching and filtering, and every row has an action (usually an eye icon or a button) to open the full detail view for that record.</p>
 
         <h2 id="customers">Customers</h2>
-        <p>Customers represent the locations that own or rent dispensers. Each customer has a unique <code>client_ref</code> (e.g. <code>CH108</code>, <code>OAK107</code>) used across the system to link machines and tickets back to a home.</p>
+        <p>Customers represent the locations that own, rent or trial dispensers. Each customer has a unique <strong>client reference</strong> (e.g. <code>CH108</code>, <code>OAK107</code>) used across the system to link machines, rentals, trials and tickets back to a home.</p>
         <h3>Creating a new customer</h3>
         <ol>
-          <li>Open the <strong>Customers</strong> page from the sidebar.</li>
-          <li>Click <strong>Add New Customer</strong>.</li>
-          <li>Fill in the home name, client reference, region (Southwest / Southeast / Midlands), and any contact details.</li>
-          <li>Save. The new customer is immediately available when creating tickets or assigning machines.</li>
+          <li>Open <strong>Customers</strong> and click <strong>Add Customer</strong>.</li>
+          <li>Fill in the home / site name, client reference, customer group, region, county and contact details (contact name, phone, email, address, postcode).</li>
+          <li>Add any notes, then <strong>Add Customer</strong>. The client reference must be unique — a duplicate is blocked with a warning.</li>
         </ol>
-        <div class="info-box">For a video walkthrough of customer creation, see the <a href="#" onclick="goTo('videos'); return false;">Walkthrough Videos</a> section.</div>
+        <p>The customer groups and regions available in the dropdowns are managed centrally under <a href="#settings">Settings</a>.</p>
+        <h3>The customer detail view</h3>
+        <p>Opening a customer shows their full profile in one place:</p>
+        <ul>
+          <li><strong>Customer Information</strong> — group, region, county, contact, phone, email, address, postcode and notes.</li>
+          <li><strong>Delivered Machines</strong> — every unit currently at that site with serial, machine number, status, delivery date and last service.</li>
+          <li><strong>Service History</strong> — all tickets raised for that customer with date of call, machines involved and resolution.</li>
+          <li><strong>Add Rental</strong> — start a new rental for the customer directly from their profile.</li>
+        </ul>
+        <div class="warn-box">A customer that still has machines or history linked to it cannot be deleted — the app blocks this with a <em>Cannot Delete Customer</em> message to protect the audit trail.</div>
 
         <h2 id="machines">Machines</h2>
-        <p>Each machine is uniquely identified by a <strong>serial number</strong>. The system also tracks a friendly <strong>machine number</strong>, the <strong>birth date</strong>, the home it's currently deployed at, last service date, and replacement-part dates (fan, motor, condenser).</p>
+        <p>The <strong>Machines</strong> screen is the master fleet list. Each machine is uniquely identified by its <strong>serial number</strong> and also carries a friendly <strong>machine number</strong>, birth date, current status, the home it is currently at, last service date and component-replacement dates (fan, motor, condenser).</p>
         <h3>Creating a new machine</h3>
         <ol>
-          <li>Go to <strong>All Machines</strong> from the sidebar.</li>
-          <li>Click <strong>Add New Machine</strong>.</li>
-          <li>Enter the serial number, machine number, birth date, and pick the initial status (e.g. <code>new_stock</code>).</li>
-          <li>Optionally link to a customer if it's already deployed.</li>
-          <li>Save.</li>
+          <li>On the <strong>Machines</strong> screen click <strong>Add New Machine</strong>.</li>
+          <li>Enter the serial number, machine number and birth date, and set the initial status (typically <code>new_stock</code>).</li>
+          <li>Click <strong>Add Machine</strong>. Both the serial number and the machine number must be unique — duplicates are blocked, and any missing required fields are flagged before saving.</li>
         </ol>
-
+        <h3>Importing machines in bulk</h3>
+        <p>Use the <strong>Import</strong> button on the Machines screen to upload many units at once from a spreadsheet, instead of adding them one by one.</p>
         <h3>Filtering and searching</h3>
-        <p>Use the <strong>Status Filter</strong> and <strong>Region Filter</strong> at the top of the Machines page to narrow the list. Click any row's eye icon to open the machine's full detail view, including its full service history.</p>
+        <p>Use the status and region filters at the top of the list to narrow the fleet, or search by serial / machine number. Click a row to open the machine's full detail view.</p>
+
+        <h2 id="machine-detail">Machine Detail &amp; History</h2>
+        <p>The machine detail view is the complete record for a single unit:</p>
+        <ul>
+          <li><strong>Machine Identity</strong> — serial number, machine age, birth date, last serviced date and current status.</li>
+          <li><strong>Component Replacements</strong> — when the fan, motor and condenser were last replaced (or "Never").</li>
+          <li><strong>Current Location</strong> — the home it was delivered to, when it was sent, and how many days it has been on site.</li>
+          <li><strong>Comments &amp; Notes</strong> — free-text notes recorded against the machine.</li>
+        </ul>
+        <h3>Correcting the serial or machine number</h3>
+        <p>Click <strong>Edit</strong> → <strong>Edit Machine Identity</strong> to correct a serial or machine number. This is only available while the machine is <strong>New Stock</strong>, and the new values must still be unique. There is also a <strong>Correct Serial</strong> option for fixing a mis-recorded serial on a machine already in the field.</p>
+        <h3>Acting on a machine</h3>
+        <p>From the detail view you can jump straight into common actions: <strong>View Full History</strong> (the complete service timeline), <strong>Create Service Ticket</strong> for the machine, <strong>Allocate</strong> it, or <strong>View Customer Profile</strong> for the site it is currently deployed at.</p>
 
         <h2 id="kanban">Fleet Kanban</h2>
-        <p>The <strong>Fleet Kanban</strong> view (sidebar → <em>Fleet Kanban</em>) gives you a visual board of every machine grouped by its current status. Each card shows the serial number, the home it's currently at, and the time it has spent in the current state.</p>
-        <p>Use the kanban for a quick at-a-glance picture of where the fleet is bottlenecked — for example, lots of cards stuck in <em>With Us to Be Serviced</em> means intake is backed up. Click any card to jump straight into the machine's detail view.</p>
-        <div class="info-box">The kanban is a read-only overview — status changes still happen via service tickets, not by dragging cards.</div>
+        <p>The <strong>Fleet Kanban</strong> gives a visual board of every machine grouped by its current status. Each card shows the serial number, the home it is at, and how long it has been in the current state. Use it for an at-a-glance picture of where the fleet is bottlenecked — for example, a tall <em>With Us to Be Serviced</em> column means intake is backed up. Click any card to open the machine's detail view, or switch to <strong>List View</strong> at any time.</p>
+        <div class="info-box">The kanban is a read-only overview — status changes still happen through service tickets, rentals, trials and deliveries, not by dragging cards.</div>
 
-        <h2 id="tickets">Service Tickets</h2>
-        <p>A service ticket is opened whenever one or more machines need attention. Tickets move through these high-level stages:</p>
+        <h2 id="deliveries">Deliveries</h2>
+        <p>The <strong>Deliveries</strong> screen is the fast path for getting a machine out to a customer, whether as a <strong>trial</strong> or a <strong>rental</strong>. It lists all deliveries with the date sent, home, serial, type, status and (for trials) the trial end date, and highlights <strong>Trials Ending Soon</strong> so nothing slips.</p>
+        <h3>Creating a delivery</h3>
+        <ol>
+          <li>Click <strong>New Delivery</strong>.</li>
+          <li>Choose the <strong>Delivery Type</strong> — Trial or Rental.</li>
+          <li>Select the machine and the customer.</li>
+          <li>Set the dates. For a trial, the <strong>trial end date is automatically set to 28 days from the delivery date</strong>. For a rental, fill in the rental details.</li>
+          <li>Click <strong>Create Delivery</strong>. The machine flips to the appropriate deployed status and appears in the Trials or Rentals lists.</li>
+        </ol>
+        <p>From the Deliveries list you can also <strong>Convert</strong> a trial to a rental or <strong>Return</strong> a machine.</p>
+
+        <h2 id="trials">Trials</h2>
+        <p>Trials are short-term loaner deployments — a fixed <strong>one-month (28-day) duration</strong> — used when a prospective customer wants to evaluate a machine before committing. The <strong>Trials</strong> screen lists every trial with customer, client reference, serial and machine number, delivery date, tracking number, trial end date and status, and calls out <strong>Trials Ending Soon</strong> with the days left.</p>
+        <h3>Running a trial end-to-end</h3>
+        <ol>
+          <li><strong>New Trial</strong> (or a Trial delivery) sends the machine out; the trial end date is set 28 days ahead.</li>
+          <li>When the trial concludes you either <strong>Convert</strong> it to a rental (the machine stays deployed) or recall the machine.</li>
+          <li>To recall, click <strong>Schedule Collection</strong> — enter the planned collection date and the courier tracking number.</li>
+          <li>When the unit arrives back, click <strong>Received</strong> → <strong>Confirm Received</strong> to mark it received at the workshop and record the return reason.</li>
+        </ol>
+
+        <h2 id="rentals">Rentals</h2>
+        <p>Rentals cover machines deployed on a paid, ongoing basis. The <strong>Rentals</strong> screen lists every active rental contract with customer, client reference, serial and machine number, shipping and delivery dates, tracking number, rental cost, first invoice date, invoice status, status, and (once ended) returned date and reason.</p>
+        <h3>Creating a rental</h3>
+        <ol>
+          <li>Click <strong>New Rental</strong> (or <strong>Add Rental</strong> from a customer's profile).</li>
+          <li>Select the customer and the machine, and set the shipping / delivery dates, tracking number and rental cost.</li>
+          <li>Click <strong>Create Rental</strong>. The machine status becomes deployed and the rental appears in the active list.</li>
+        </ol>
+        <h3>Managing a live rental</h3>
         <ul>
-          <li><strong>Open / In Transit to Us</strong> — machine has been picked up from the customer.</li>
-          <li><strong>With Us to Be Serviced</strong> — machine has arrived at the workshop and is awaiting intake verification.</li>
-          <li><strong>Being Serviced</strong> — service has started.</li>
-          <li><strong>Closed</strong> — final state.</li>
+          <li><strong>Edit Invoice Details</strong> — update the first invoice date, invoice number and completion status for billing.</li>
+          <li><strong>Replace Machine (wrong serial)</strong> → <strong>Confirm Swap</strong> — correct the rental if the wrong unit was recorded against it.</li>
+          <li><strong>Schedule Collection from Customer</strong> — when a rental ends, enter the collection date and tracking number.</li>
+          <li><strong>Mark Received at Workshop</strong> → <strong>Confirm Received</strong> — close out the return once the machine is back.</li>
         </ul>
 
-        <h3>Receive Machines</h3>
-        <p>When physical machines arrive at the workshop, click <strong>Receive Machines</strong> on the ticket detail page. Enter the date received and any optional remarks. This sets the ticket to <em>With Us to Be Serviced</em> and updates each linked machine.</p>
+        <h2 id="invoicing">Invoice Tracking &amp; Rentals Report</h2>
+        <p>Two reports, reachable from the Rentals screen, support billing:</p>
+        <h3>Invoice Tracking</h3>
+        <p><strong>Invoice Tracking</strong> lists each rented machine with its client reference (CRN), region, delivered date, first invoice date, invoice <strong>frequency</strong>, rental cost, the previous invoice date, the <strong>next invoice date</strong> and how long until it is <strong>due</strong>. Use it to see at a glance which rentals are coming up for invoicing.</p>
+        <h3>Rentals Report</h3>
+        <p>The <strong>Rentals Report</strong> lists all customers with active rentals, grouped for invoicing — showing CRN, region, customer group, customer name and total rental cost. Drill into a customer to see their rental detail (Customer Rentals view), and from there jump to the full customer profile.</p>
 
-        <h3>Verify Intake</h3>
-        <p>For each received machine, click <strong>Verify Intake</strong> to confirm the physical machine matches the record. You can add intake notes (scuffs, missing parts, etc.) before confirming. Once verified the row shows <em>Ready for Service</em>.</p>
+        <h2 id="tickets">Creating a Service Ticket</h2>
+        <p>A service ticket is opened whenever one or more machines at a customer need attention. Creation is a guided four-step form:</p>
+        <ol>
+          <li><strong>Step 1 — Customer &amp; Machine Selection.</strong> Pick the customer, review their details (site name, account ref, group, region, and a summary of their machines — total, deployed, trials, under service), then tick every machine that needs attention on this visit.</li>
+          <li><strong>Step 2 — Call &amp; Request Details.</strong> Record when the call was received, what was requested (WA Requested), the customer reference number and the quantity to be serviced.</li>
+          <li><strong>Step 3 — Reported Faults.</strong> Select all the faults the customer reported.</li>
+          <li><strong>Step 4 — Issue Details.</strong> Describe the issue as reported, and record any advice given to the customer.</li>
+        </ol>
+        <p>Click <strong>Add Service Ticket</strong> to submit. Required fields are validated first (a <em>Required details missing</em> prompt appears if anything essential is blank). On submit the ticket is created with status <strong>In transit to us</strong> and a <strong>Job Sheet</strong> is generated automatically.</p>
+        <div class="info-box">You can also start a ticket straight from a machine's detail view, or from the Service Tickets <strong>Kanban</strong> using <strong>New Ticket</strong>.</div>
 
-        <h3>Generate Service Report (Draft)</h3>
-        <p>For verified machines, click <strong>Generate Service Report</strong>. Select the service type, owner, category, location, technician, and dates. The system marks the machine as <em>In Service</em> and produces a <strong>Draft Service Report PDF</strong> — this is the document that is printed and handed to the service engineer along with the machine. View it any time from the <strong>View Report</strong> button on the machine card.</p>
-
-        <h3>Complete Service or Write Off</h3>
-        <p>From an <em>In Service</em> machine you can either <strong>Complete Service</strong> or <strong>Write Off</strong> (with a reason). When all machines on the ticket finish one of these, the ticket auto-closes.</p>
-        <p>Complete Service captures the engineer's findings into a <strong>Final Service Report PDF</strong>. The popup records:</p>
+        <h2 id="ticket-workflow">Service Ticket Workflow</h2>
+        <p>The ticket detail view is where a ticket is worked from creation to closure. The header shows the ticket number, customer, priority, dates and the reported issue, and a live tally of the machines on the ticket across the stages: <strong>Total, In Transit, Awaiting Intake, Ready for Service, In Service, Completed, Written Off</strong>.</p>
+        <p>The end-to-end sequence is:</p>
+        <ol>
+          <li><strong>Schedule Collection</strong> — set or update the date the faulty machine is to be collected from the customer site.</li>
+          <li><strong>Receive Machines</strong> — when the units arrive at the workshop, record the date received. The ticket moves to <em>With Us to Be Serviced</em> and each machine is updated.</li>
+          <li><strong>Verify Intake</strong> — for each received machine, confirm the physical unit matches the record and add optional intake notes. The machine becomes <em>Ready for Service</em>.</li>
+          <li><strong>Generate Service Report</strong> — set the service type, owner, category, location, technician and dates. This produces a <strong>Draft Service Report</strong> and marks the machine <em>In Service</em>.</li>
+          <li><strong>Complete Service</strong> or <strong>Write Off</strong> — close out each machine. When every machine reaches one of these, the ticket auto-closes.</li>
+        </ol>
+        <h3>Other actions on a ticket</h3>
         <ul>
-          <li><strong>Technician Notes</strong> — free-text area (4 lines minimum) where the office team types up the engineer's handwritten notes from the printed Draft Report.</li>
-          <li><strong>Parts Replaced</strong> — Fan / Motor / Condenser checkboxes with replacement dates.</li>
-          <li><strong>Service Completion Date</strong>.</li>
-          <li><strong>Service Photos</strong> — multi-file upload (up to 10 images) for any pictures the engineer took during the service.</li>
-          <li><strong>Completion Remarks</strong> — optional summary.</li>
+          <li><strong>Close as Phone Support</strong> — if the issue is resolved over the phone, record the advice given and close the ticket without collecting the machine.</li>
+          <li><strong>Relabel Serial (New Panel Fitted)</strong> — assign a new serial and machine number when a machine's panel is replaced.</li>
+          <li><strong>Correct Serial</strong> — fix a mis-recorded serial on a received machine.</li>
+          <li><strong>Replacement</strong> — jump to Replacement Jobs to swap a machine out (see below).</li>
+          <li><strong>Report</strong> / <strong>View Draft Service Report</strong> / <strong>View Final Service Report</strong> — open or download the ticket's job sheet and the service reports.</li>
         </ul>
-        <p>Once submitted, the Final Report is auto-generated in the background and made available via the <strong>View Service Report</strong> button on the machine card.</p>
+        <p>An audit entry is recorded at each transition, so you can always trace who did what and when from the ticket.</p>
 
         <h2 id="service-reports">Service Reports (Draft &amp; Final)</h2>
-        <p>Each serviced machine produces two distinct PDF reports. They serve different purposes in the workflow:</p>
+        <p>Each serviced machine produces two distinct PDF reports that serve different purposes in the workflow:</p>
         <table class="status-table">
           <thead>
-            <tr><th>Report</th><th>Generated when</th><th>Purpose</th><th>Accessed via</th></tr>
+            <tr><th>Report</th><th>Generated when</th><th>Purpose</th></tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Draft Service Report</strong></td>
               <td>Office clicks <em>Generate Service Report</em> on a verified machine.</td>
-              <td>Printable working sheet for the service engineer. Includes ticket number, customer, machine serial &amp; number, service type, technician, dates and service remarks. Carried with the machine for the engineer to mark up by hand with his findings, parts replaced and notes.</td>
-              <td><strong>View Report</strong> button on the machine card.</td>
+              <td>Printable working sheet carried with the machine for the engineer. Includes the ticket number, customer, machine serial &amp; number, service type, technician and dates — the engineer marks it up by hand with findings, parts replaced and notes.</td>
             </tr>
             <tr>
               <td><strong>Final Service Report</strong></td>
               <td>Office clicks <em>Complete Service</em> after the engineer returns the marked-up draft.</td>
-              <td>Permanent digital record of the completed service. Consolidates everything from the Complete Service popup — technician notes (entered by office from the engineer's paper), parts replaced with dates, completion date, completion remarks and uploaded service photos — into a single archived PDF.</td>
-              <td><strong>View Service Report</strong> button on the machine card.</td>
+              <td>Permanent digital record of the completed service. Consolidates the technician notes (transcribed by the office from the engineer's paper), parts replaced with dates, completion date, completion remarks and any uploaded service photos into a single archived PDF.</td>
             </tr>
           </tbody>
         </table>
+        <p>The <strong>Complete Service</strong> popup captures the technician notes, the fan / motor / condenser parts replaced with dates, the service completion date, up to ten service photos, and completion remarks. Both reports are accessible from the machine's card via <strong>View Draft Service Report</strong> and <strong>View Final Service Report</strong>.</p>
         <div class="info-box">
-          <strong>End-to-end flow:</strong> machine arrives → intake verified → office generates &amp; prints Draft Report → engineer services machine and writes notes on the printout → office receives the marked-up paper → office opens Complete Service popup, transcribes the engineer's notes, ticks off parts replaced, uploads photos → Final Report PDF is auto-generated and stored against the machine.
+          <strong>End-to-end flow:</strong> machine arrives → intake verified → office generates &amp; prints the Draft Report → engineer services the machine and writes notes on the printout → office receives the marked-up paper → office opens Complete Service, transcribes the notes, ticks off parts replaced, uploads photos → the Final Report PDF is generated and stored against the machine.
         </div>
-        <div class="info-box">On ticket closure, the repaired machine moves back to <code>in_stock</code> and is held in the warehouse — it is <strong>not</strong> automatically reissued to the original customer. The replacement that was sent out earlier stays deployed at the customer site.</div>
-
-        <h2 id="ticket-workflow">Ticket Workflow & Completion</h2>
-        <p>End-to-end, a service ticket moves through five concrete steps. Knowing this sequence makes it easier to spot where a ticket is stuck:</p>
-        <ol>
-          <li><strong>Create ticket</strong> — pick the customer, add the machines that need attention, and describe the fault.</li>
-          <li><strong>Receive Machines</strong> — physical units arrive at the workshop; the ticket flips to <em>With Us to Be Serviced</em>.</li>
-          <li><strong>Verify Intake</strong> — confirm each machine matches what was reported and add intake notes.</li>
-          <li><strong>Generate Service Report</strong> — assign technician, service type and dates; a PDF service report is produced.</li>
-          <li><strong>Complete or Write Off</strong> — close out each machine. Once every machine is closed, the ticket auto-closes. The repaired machine returns to <code>in_stock</code>; the replacement sent earlier stays deployed at the customer.</li>
-        </ol>
-        <p>An audit log entry is recorded at each transition, so you can always trace who did what and when from the ticket detail page.</p>
+        <div class="warn-box">On ticket closure the repaired machine returns to <code>in_stock</code> and is held in the warehouse — it is <strong>not</strong> automatically reissued to the original customer. Any replacement that was sent out earlier stays deployed at the customer site.</div>
 
         <h2 id="replacement">Replacement Jobs</h2>
-        <p>If a machine has to be swapped out instead of repaired, you create a <strong>Replacement Job</strong>. A job ties one or more replacement machines to a parent service ticket and tracks the courier, tracking number, and customer-received date for each replacement.</p>
-        <h3>Creating a replacement job</h3>
+        <p>When a machine has to be swapped out rather than repaired on site, you create a <strong>Replacement Job</strong>. A job ties one or more replacement machines to a parent service ticket and tracks the courier and tracking details for each swap.</p>
+        <h3>How replacement jobs work</h3>
         <ol>
-          <li>From the service ticket, click <strong>Create Replacement Job</strong> on a machine that's been written off or flagged for replacement.</li>
-          <li>Pick the replacement machine from in-stock units, set the send date, courier and tracking number.</li>
-          <li>Save. The replacement machine flips to <em>In Transit to Customer</em> and the original ticket is linked.</li>
-          <li>When the customer confirms receipt, set the <strong>Customer Received Date</strong> on the job — the replacement machine is then marked <em>Deployed</em>.</li>
+          <li>From the service ticket, open <strong>Replacement</strong> to reach the replacement-jobs screen for that ticket.</li>
+          <li>Click <strong>Assign</strong> on each machine to pick its replacement from in-stock units and enter the shipping details (courier and tracking) and send date. The card turns blue once the replacement is saved.</li>
+          <li>Once <strong>all</strong> machines on the ticket are assigned, click <strong>Create Replacement Job</strong> to finalise it. Use <strong>Send Replacement</strong> to dispatch.</li>
+          <li>When the job is finished, <strong>Close Job</strong> completes it.</li>
         </ol>
+        <p>All replacement jobs across every ticket are listed under <strong>Replacement Jobs</strong> in the menu, each opening a detail view with its machine assignments and shipping status.</p>
 
-        <h2 id="rentals">Rentals</h2>
-        <p>Rentals cover machines deployed on a paid-rental basis instead of as outright supply. The Rentals view (sidebar → <em>Rentals</em>) shows every active and historical rental with its rate, start and end dates, and the linked customer.</p>
-        <h3>Creating a rental</h3>
-        <ol>
-          <li>Open <strong>Rentals</strong> from the sidebar.</li>
-          <li>Click <strong>Add New Rental</strong>.</li>
-          <li>Select the customer, the machine being rented, the start date, monthly rate, and any notes.</li>
-          <li>Save. The machine status flips to <em>Deployed</em> and the rental row appears in the active rentals list.</li>
-        </ol>
-        <p>Closing a rental records an end date and returns the machine to <em>In Stock</em> (or routes it through service if it needs work).</p>
+        <h2 id="due-for-service">Due for Service &amp; Planning by Area</h2>
+        <p><strong>Machines Due for Service</strong> lists units that need proactive service based on their last service date, showing serial, home name, location, client reference, last serviced date and how far due they are. This drives scheduled maintenance rather than waiting for a fault to be reported.</p>
+        <p>From there, <strong>Plan by Area</strong> opens <strong>Service Planning by Area</strong>, which groups the due machines by home and postcode with a count of machines due and the last serviced date — so a visit can be planned to cover several nearby sites in one trip.</p>
 
-        <h2 id="trials">Trials</h2>
-        <p>Trials are short-term loaner deployments — typically 1–4 weeks — used when a prospective customer wants to evaluate a machine before committing.</p>
-        <h3>Creating a trial</h3>
-        <ol>
-          <li>Open <strong>Trials</strong> from the sidebar.</li>
-          <li>Click <strong>Add New Trial</strong>.</li>
-          <li>Pick the customer, machine, trial start date, expected end date, and notes (e.g. point of contact).</li>
-          <li>Save. The machine flips to <em>Trial</em> status and counts down to the trial end date.</li>
-        </ol>
-        <p>At the end of the trial you can either convert it to a <em>Sale</em> / <em>Rental</em> (the machine stays deployed) or close the trial and recall the machine for return to stock.</p>
+        <h2 id="settings">Settings (Master Data)</h2>
+        <p>The <strong>Settings</strong> screen manages the curated lists used across the customer form. Keeping these tidy keeps customer data consistent.</p>
+        <ul>
+          <li><strong>Customer Groups</strong> — add, rename, delete and import groups. The list shows how many customers use each group; a group still in use cannot be deleted. Adding a duplicate name is blocked with a warning.</li>
+          <li><strong>Regions</strong> — add, rename, delete and import regions with their region codes. Duplicate region names or codes are blocked with a conflict warning.</li>
+        </ul>
 
         <h2 id="statuses">Status Reference</h2>
         <table class="status-table">
@@ -536,12 +619,13 @@
             <tr><th>Status</th><th>Meaning</th></tr>
           </thead>
           <tbody>
-            <tr><td><span class="status-pill" style="background:#DBEAFE;color:#2563EB">new_stock</span></td><td>Newly received unit, never deployed.</td></tr>
+            <tr><td><span class="status-pill" style="background:#DBEAFE;color:#2563EB">new_stock</span></td><td>Newly added unit, never deployed. Identity (serial / machine number) can still be corrected in this state.</td></tr>
             <tr><td><span class="status-pill" style="background:#CCFBF1;color:#0D9488">in_stock</span></td><td>Available in the warehouse for assignment.</td></tr>
-            <tr><td><span class="status-pill" style="background:#D1FAE5;color:#059669">deployed</span></td><td>At a customer site and in active use.</td></tr>
-            <tr><td><span class="status-pill" style="background:#FEF3C7;color:#92400E">in_transit_to_us</span></td><td>Picked up, on the way to workshop.</td></tr>
-            <tr><td><span class="status-pill" style="background:#FEE2E2;color:#991B1B">with_us_to_be_serviced</span></td><td>Arrived at workshop, awaiting service.</td></tr>
-            <tr><td><span class="status-pill" style="background:#FFEDD5;color:#EA580C">being_serviced</span></td><td>Currently being repaired.</td></tr>
+            <tr><td><span class="status-pill" style="background:#D1FAE5;color:#059669">deployed</span></td><td>At a customer site and in active use (rental or converted).</td></tr>
+            <tr><td><span class="status-pill" style="background:#E0F2FE;color:#0369A1">trial</span></td><td>Out with a customer on a 28-day trial.</td></tr>
+            <tr><td><span class="status-pill" style="background:#FEF3C7;color:#92400E">in_transit_to_us</span></td><td>Picked up, on the way to the workshop.</td></tr>
+            <tr><td><span class="status-pill" style="background:#FEE2E2;color:#991B1B">with_us_to_be_serviced</span></td><td>Arrived at the workshop, awaiting intake / service.</td></tr>
+            <tr><td><span class="status-pill" style="background:#FFEDD5;color:#EA580C">being_serviced</span></td><td>Currently being repaired (In Service).</td></tr>
             <tr><td><span class="status-pill" style="background:#EDE9FE;color:#8B5CF6">in_transit_to_customer</span></td><td>Replacement machine en route to a customer site.</td></tr>
             <tr><td><span class="status-pill" style="background:#E5E7EB;color:#374151">written_off</span></td><td>Permanently retired from the fleet.</td></tr>
           </tbody>
@@ -556,7 +640,7 @@
   <main class="container page" id="page-videos">
     <div class="section-head">
       <h1>Walkthrough Videos</h1>
-      <p>Short Loom recordings covering each of the main flows in the app. Click play on any video below.</p>
+      <p>Short Loom recordings covering the main flows in the app. Click play on any video below.</p>
     </div>
 
     <div class="docs-layout">
@@ -696,7 +780,7 @@
       {
         pageId: 'page-docs',
         tocId: 'toc',
-        sectionIds: ['overview','customers','machines','kanban','tickets','ticket-workflow','replacement','rentals','trials','statuses']
+        sectionIds: ['overview','navigation','customers','machines','machine-detail','kanban','deliveries','trials','rentals','invoicing','tickets','ticket-workflow','service-reports','replacement','due-for-service','settings','statuses']
       },
       {
         pageId: 'page-videos',
